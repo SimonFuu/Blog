@@ -1,0 +1,115 @@
+body {
+    padding-top: 70px;
+    background: #f6f6f6;
+}
+a {
+    text-decoration:none !important;
+}
+
+a:hover {
+    color: blue;
+}
+
+p {
+    text-indent:2em;
+}
+
+.navbar-front {
+    border-radius: 0 !important;
+}
+
+.body, .footer {
+    margin-bottom: 20px;
+}
+
+.left-part, .right-part {
+    background: #ffffff;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 3px 15px;
+}
+
+.main-container {
+    padding: 10px;
+}
+
+.read-content {
+    margin-right: 15px;
+}
+
+.article-tag {
+    margin: 3px 1px;
+}
+
+.search-article {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.search-article-input {
+    width: 73% !important;
+}
+
+.search-article-submit {
+    width: 25%;
+}
+
+.toTop {
+    position:fixed;
+    bottom: 20%;
+    right: 10%;
+    background: #4db4d7;
+    padding: 10px 15px;
+    border-radius: 10px;
+}
+
+.toTop > .fa {
+    color: #ffffff;
+}
+
+.toTop:hover {
+    cursor: pointer;
+}
+
+.animation-in{
+    animation: 1s animation-in 0s;
+    animation-fill-mode: forwards;
+    -webkit-animation: 1s animation-in 0s;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation: 1s animation-in 0s;
+    -moz-animation-fill-mode: forwards;
+}
+@keyframes animation-in{
+    0% {opacity: 0;}
+    100% {opacity: 0.6;}
+}
+@-webkit-keyframes animation-in{
+    0% {opacity: 0;}
+    100% {opacity: 0.6;}
+}
+@-moz-keyframes animation-in{
+    0% {opacity: 0;}
+    100% {opacity: 0.6;}
+}
+
+.animation-out{
+    animation: 1s animation-out 0s;
+    animation-fill-mode: forwards;
+    -webkit-animation: 1s animation-out 0s;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation: 1s animation-out 0s;
+    -moz-animation-fill-mode: forwards;
+
+}
+@keyframes animation-out{
+    0% {opacity: 0.6;}
+    100% {opacity: 0;}
+}
+@-webkit-keyframes animation-out{
+    0% {opacity: 0.6;}
+    100% {opacity: 0;}
+}
+@-moz-keyframes animation-out{
+    0% {opacity: 0.6;}
+    100% {opacity: 0;}
+}
