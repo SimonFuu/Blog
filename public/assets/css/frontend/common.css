@@ -10,54 +10,96 @@ a:hover {
     color: blue;
 }
 
-p {
-    text-indent:2em;
-}
-
+/**
+ * 导航栏
+ */
 .navbar-front {
     border-radius: 0 !important;
 }
 
+/**
+ * 页面主体及footer
+ */
 .body, .footer {
     margin-bottom: 20px;
 }
 
-.left-part, .right-part {
+/**
+ * 页面主体左右侧样式
+ */
+.main-container {
+    padding: 10px;
+}
+
+/**
+ * 页面主体具体的模块样式
+ */
+.module {
     background: #ffffff;
     margin-bottom: 10px;
     border-radius: 5px;
     padding: 3px 15px;
 }
 
-.main-container {
-    padding: 10px;
+.archive-content-index-thumb {
+    text-indent:2em;
 }
-
+/**
+ * 左侧文章主体-阅读全文按钮
+ */
 .read-content {
     margin-right: 15px;
+    margin-bottom: 15px;
 }
 
-.article-tag {
+/**
+ * 右侧文章标签
+ */
+.archive-tag {
     margin: 3px 1px;
 }
 
-.search-article {
+/**
+ * 最近评论
+ */
+.index-comment-avatar {
+    position: absolute;
+    left: 25px;
+    height: 40px;
+    width: 40px;
+}
+
+.recent-comment > .comment-main > ul > li {
+    list-style: none;
+    margin-left: 10px;
+    font-size: 13px;
+    color: #555;
+    overflow: hidden;
+}
+
+/**
+ * 右侧搜索全站
+ */
+.search-archive {
     padding-top: 20px;
     padding-bottom: 20px;
 }
 
-.search-article-input {
+.search-archive-input {
     width: 73% !important;
 }
 
-.search-article-submit {
+.search-archive-submit {
     width: 25%;
 }
 
+/**
+ * 回到顶部按钮样式
+ */
 .toTop {
     position:fixed;
-    bottom: 20%;
-    right: 10%;
+    bottom: 30px;
+    right: 30px;
     background: #4db4d7;
     padding: 10px 15px;
     border-radius: 10px;
@@ -70,46 +112,103 @@ p {
 .toTop:hover {
     cursor: pointer;
 }
-
+/**
+ * 回到顶部动画效果
+ */
 .animation-in{
-    animation: 1s animation-in 0s;
+    animation: 0.5s animation-in 0s;
     animation-fill-mode: forwards;
-    -webkit-animation: 1s animation-in 0s;
+    -webkit-animation: 0.5s animation-in 0s;
     -webkit-animation-fill-mode: forwards;
-    -moz-animation: 1s animation-in 0s;
+    -moz-animation: 0.5s animation-in 0s;
     -moz-animation-fill-mode: forwards;
 }
 @keyframes animation-in{
     0% {opacity: 0;}
-    100% {opacity: 0.6;}
+    10% {opacity: 0.1;}
+    20% {opacity: 0.2;}
+    30% {opacity: 0.3;}
+    40% {opacity: 0.4;}
+    50% {opacity: 0.5;}
+    60% {opacity: 0.6;}
+    70% {opacity: 0.7;}
+    80% {opacity: 0.8;}
+    90% {opacity: 0.9;}
+    100% {opacity: 1;}
 }
 @-webkit-keyframes animation-in{
     0% {opacity: 0;}
-    100% {opacity: 0.6;}
+    10% {opacity: 0.1;}
+    20% {opacity: 0.2;}
+    30% {opacity: 0.3;}
+    40% {opacity: 0.4;}
+    50% {opacity: 0.5;}
+    60% {opacity: 0.6;}
+    70% {opacity: 0.7;}
+    80% {opacity: 0.8;}
+    90% {opacity: 0.9;}
+    100% {opacity: 1;}
 }
 @-moz-keyframes animation-in{
     0% {opacity: 0;}
-    100% {opacity: 0.6;}
+    10% {opacity: 0.1;}
+    20% {opacity: 0.2;}
+    30% {opacity: 0.3;}
+    40% {opacity: 0.4;}
+    50% {opacity: 0.5;}
+    60% {opacity: 0.6;}
+    70% {opacity: 0.7;}
+    80% {opacity: 0.8;}
+    90% {opacity: 0.9;}
+    100% {opacity: 1;}
 }
 
 .animation-out{
-    animation: 1s animation-out 0s;
+    animation: 0.5s animation-out 0s;
     animation-fill-mode: forwards;
-    -webkit-animation: 1s animation-out 0s;
+    -webkit-animation: 0.5s animation-out 0s;
     -webkit-animation-fill-mode: forwards;
-    -moz-animation: 1s animation-out 0s;
+    -moz-animation: 0.5s animation-out 0s;
     -moz-animation-fill-mode: forwards;
 
 }
 @keyframes animation-out{
-    0% {opacity: 0.6;}
+    0% {opacity: 1;}
+    10% {opacity: 0.9;}
+    20% {opacity: 0.8;}
+    30% {opacity: 0.7;}
+    40% {opacity: 0.6;}
+    50% {opacity: 0.5;}
+    60% {opacity: 0.4;}
+    70% {opacity: 0.3;}
+    80% {opacity: 0.2;}
+    90% {opacity: 0.1;}
     100% {opacity: 0;}
 }
 @-webkit-keyframes animation-out{
-    0% {opacity: 0.6;}
+    0% {opacity: 1;}
+    10% {opacity: 0.9;}
+    20% {opacity: 0.8;}
+    30% {opacity: 0.7;}
+    40% {opacity: 0.6;}
+    50% {opacity: 0.5;}
+    60% {opacity: 0.4;}
+    70% {opacity: 0.3;}
+    80% {opacity: 0.2;}
+    90% {opacity: 0.1;}
     100% {opacity: 0;}
 }
 @-moz-keyframes animation-out{
-    0% {opacity: 0.6;}
+    0% {opacity: 1;}
+    10% {opacity: 0.9;}
+    20% {opacity: 0.8;}
+    30% {opacity: 0.7;}
+    40% {opacity: 0.6;}
+    50% {opacity: 0.5;}
+    60% {opacity: 0.4;}
+    70% {opacity: 0.3;}
+    80% {opacity: 0.2;}
+    90% {opacity: 0.1;}
     100% {opacity: 0;}
 }
+
