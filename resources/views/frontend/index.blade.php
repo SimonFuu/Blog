@@ -1,134 +1,60 @@
 @extends('frontend.layouts.common')
 @section('content')
-    <div class="module">
-        <div class="contents-header">
-            <h2><a href="#">文章标题1</a></h2>
-            <div class="row">
-                <div class="col-md-2">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                    &nbsp;
-                    管理员
-                </div>
-                <div class="col-md-4">
-                    <i class="fa fa-calculator" aria-hidden="true"></i>
-                    &nbsp;
-                    2017-03-20 11:00:00
-                </div>
-                <div class="col-md-3">
-                    <i class="fa fa-list-alt" aria-hidden="true"></i>
-                    &nbsp;
-                    <a href="#catalog">目录</a>
-                </div>
-                <div class="col-md-3">
-                    <i class="fa fa-tags" aria-hidden="true"></i>
-                    &nbsp;
-                    <a href="#tag">标签</a>
+    @foreach($archives as $archive)
+        <div class="module">
+            <div class="contents-header">
+                <h2><a href="/archive/{{ $archive -> id }}">{{ $archive -> title }}</a></h2>
+                <div class="row">
+                    <div class="col-md-3">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        &nbsp;
+                        {{ $archive -> author }}
+                    </div>
+                    <div class="col-md-3">
+                        <i class="fa fa-calculator" aria-hidden="true"></i>
+                        &nbsp;
+                        {{ $archive -> createdAt }}
+                    </div>
+                    <div class="col-md-3">
+                        <i class="fa fa-list-alt" aria-hidden="true"></i>
+                        &nbsp;
+                        <a href="/catalogs/{{ $archive -> catalog }}">{{ $archive -> catalog }}</a>
+                    </div>
+                    <div class="col-md-3">
+                        <i class="fa fa-tags" aria-hidden="true"></i>
+                        &nbsp;
+                        <a href="/tags/{{ $archive -> tag }}">{{ $archive -> tag }}</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <hr>
-        <div class="contents-body">
-            <div class="row">
-                <div class="col-md-4">
-                    <a href="#"><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1481477780,2753782188&fm=170&s=DD1B8355CA2A441D9220E9AB03006001&w=441&h=268&img.JPEG" alt="#" class="img-thumbnail"></a>
-                </div>
-                <div class="col-md-8">
-                    <p class="archive-content-index-thumb">
-                        这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍
-                    </p>
-                    <div class="pull-right read-content">
-                        <a href="/archive/11" class="btn btn-info btn-xs">阅读全文</a>
+            <hr>
+            <div class="contents-body">
+                <div class="row index-archives-body">
+                    <div class="col-md-4">
+                        <div class="index-archive-thumb-container">
+                            <a href="/archive/{{ $archive -> id }}"><img class="index-archive-thumb img-thumbnail" src="{{ $archive -> thumb }}" alt="文章缩略图"></a>
+                            <P class=companyInfo>阅读全文</P>
+                            <div class="cornerTop div-2"></div>
+                            <div class="cornerRight div-1"></div>
+                            <div class="cornerBottom div-2"></div>
+                            <div class="cornerLeft div-1"></div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-8">
+                        <div class="index-archives-content">
+                            <p class="index-archive-content-thumb">
+                                {{ $archive -> content }}
+                            </p>
+                        </div>
+                        <div class="read-content">
+                            <a href="/archive/{{ $archive -> id }}" class="btn btn-info btn-xs">阅读全文</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="module">
-        <div class="contents-header">
-            <h2><a href="#">文章标题1</a></h2>
-            <div class="row">
-                <div class="col-md-2">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                    &nbsp;
-                    管理员
-                </div>
-                <div class="col-md-4">
-                    <i class="fa fa-calculator" aria-hidden="true"></i>
-                    &nbsp;
-                    2017-03-20 11:00:00
-                </div>
-                <div class="col-md-3">
-                    <i class="fa fa-list-alt" aria-hidden="true"></i>
-                    &nbsp;
-                    <a href="#catalog">目录</a>
-                </div>
-                <div class="col-md-3">
-                    <i class="fa fa-tags" aria-hidden="true"></i>
-                    &nbsp;
-                    <a href="#tag">标签</a>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div class="contents-body">
-            <div class="row">
-                <div class="col-md-4">
-                    <a href="#"><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1481477780,2753782188&fm=170&s=DD1B8355CA2A441D9220E9AB03006001&w=441&h=268&img.JPEG" alt="#" class="img-thumbnail"></a>
-                </div>
-                <div class="col-md-8">
-                    <p class="archive-content-index-thumb">
-                        这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍
-                    </p>
-                    <div class="pull-right read-content">
-                        <a href="/archive/11" class="btn btn-info btn-xs">阅读全文</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="module">
-        <div class="contents-header">
-            <h2><a href="#">文章标题1</a></h2>
-            <div class="row">
-                <div class="col-md-2">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                    &nbsp;
-                    管理员
-                </div>
-                <div class="col-md-4">
-                    <i class="fa fa-calculator" aria-hidden="true"></i>
-                    &nbsp;
-                    2017-03-20 11:00:00
-                </div>
-                <div class="col-md-3">
-                    <i class="fa fa-list-alt" aria-hidden="true"></i>
-                    &nbsp;
-                    <a href="#catalog">目录</a>
-                </div>
-                <div class="col-md-3">
-                    <i class="fa fa-tags" aria-hidden="true"></i>
-                    &nbsp;
-                    <a href="#tag">标签</a>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div class="contents-body">
-            <div class="row">
-                <div class="col-md-4">
-                    <a href="#"><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1481477780,2753782188&fm=170&s=DD1B8355CA2A441D9220E9AB03006001&w=441&h=268&img.JPEG" alt="#" class="img-thumbnail"></a>
-                </div>
-                <div class="col-md-8">
-                    <p class="archive-content-index-thumb">
-                        这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍这是个介绍
-                    </p>
-                    <div class="pull-right read-content">
-                        <a href="/archive/11" class="btn btn-info btn-xs">阅读全文</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @endforeach
     <div class="module archive-pagination">
         分页的地方
     </div>

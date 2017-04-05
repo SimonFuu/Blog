@@ -177,6 +177,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\SidebarServiceProvider::class,
+        App\Providers\NavBarServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
     ],
 

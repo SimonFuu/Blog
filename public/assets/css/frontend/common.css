@@ -1,7 +1,9 @@
 body {
     padding-top: 70px;
     background: #f6f6f6;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
 }
+
 a {
     text-decoration:none !important;
 }
@@ -41,15 +43,94 @@ a:hover {
     padding: 3px 15px;
 }
 
-.archive-content-index-thumb {
+.index-archive-content-thumb {
     text-indent:2em;
+}
+
+.index-archives-body {
+    padding-bottom: 20px;
+}
+@media screen and (max-width: 1024px) {
+    .index-archives-body .col-md-4 {
+        display: none;
+    }
+    .index-archives-body .col-md-8 {
+        width: 100% !important;
+    }
+}
+@media screen and (min-width: 1024px){
+    .index-archive-thumb-container {
+        /*line-height: 150px;*/
+        width: 200px;
+        height: 150px;
+        overflow:hidden;
+        position: relative;
+    }
+    .index-archive-thumb-container p {
+        display:none;
+        color: white;
+        left:0;
+        top:60px;
+        width:100%;
+        z-index:200;
+        position:absolute;
+        font-size:20px;
+        text-align:center;
+        cursor:pointer;
+    }
+    .index-archive-thumb-container .cornerLeft, .cornerRight {
+        position:absolute;
+        z-index:100;
+        background-color:#959595;
+        height:200px;
+        /*width: 100px;*/
+        cursor:pointer;
+    }
+
+    .index-archive-thumb-container .cornerTop, .cornerBottom {
+        position:absolute;
+        z-index:100;
+        background-color:#959595;
+        width:300px;
+        /*height: 100px;*/
+        cursor:pointer;
+    }
+
+    .index-archive-thumb-container .cornerLeft {
+        left: 0;
+        top: -20px;
+    }
+    .index-archive-thumb-container .cornerRight {
+        right: 0;
+        top: -20px;
+    }
+    .index-archive-thumb-container .cornerTop {
+        /*left: 0;*/
+        top: 0;
+    }
+    .index-archive-thumb-container .cornerBottom {
+        /*right: 0;*/
+        bottom: 0;
+    }
+}
+
+
+
+.index-archive-thumb {
+    height: 150px;
+    width: 200px;
+}
+
+.index-archives-content {
+    height: 128px;
+    overflow: hidden;
 }
 /**
  * 左侧文章主体-阅读全文按钮
  */
 .read-content {
-    margin-right: 15px;
-    margin-bottom: 15px;
+    margin-right: 20px;
+    text-align: right;
 }
 
 /**
