@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\ServiceProvider;
 
 class NavBarServiceProvider extends ServiceProvider
@@ -15,15 +17,8 @@ class NavBarServiceProvider extends ServiceProvider
     public function boot(Request $request)
     {
         view() -> composer('frontend.layouts.widgets.navigation', function($view) use ($request) {
-            $menus = $this -> getMenus();
-            foreach ($menus as $menu) {
-                if ($menu -> url == $request -> getRequestUri()) {
-                    $menu -> active = true;
-                } else {
-                    $menu -> active = false;
-                }
-            }
-            $view -> with('menus', $menus);
+            $view -> with('catalogs', $this -> getCatalogs());
+            $view -> with('uri', $request -> getRequestUri());
         });
     }
 
@@ -37,13 +32,20 @@ class NavBarServiceProvider extends ServiceProvider
         //
     }
 
-    private function getMenus()
+    private function getCatalogs()
     {
-        return [
-            (object) ['name' => '菜单1', 'url' => '/'],
-            (object) ['name' => '菜单2', 'url' => '/n'],
-            (object) ['name' => '菜单3', 'url' => '/h'],
-            (object) ['name' => '菜单4', 'url' => '/a'],
-        ];
+        $catalogs = Redis::get('CATALOGS');
+        if (!$catalogs) {
+            $catalogs = DB::table('catalogs')
+                -> select('id', 'name')
+                -> where('publishedAt', '<=', date('Y-m-d H:i:s'))
+                -> where('isDelete', 0)
+                -> orderBy('displayWeight' , 'ASC')
+                -> get();
+            Redis::set('MENUS', $catalogs);
+        } else {
+            $menus = json_decode($catalogs);
+        }
+        return $catalogs;
     }
 }

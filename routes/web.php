@@ -17,4 +17,7 @@ Route::group(['prefix' => '/backend', 'namespace' => 'Backend'], function () {
 
 Route::group(['prefix' => '/', 'namespace' => 'Frontend'], function () {
     Route::get('/', 'IndexController@index');
+    Route::get('/article/{id}', 'ArticlesController@getArticle');
+    Route::get('/catalog/{id}', 'CatalogsController@getCatalogArticles');
+    Route::get('/tag/{id}', 'TagsController@getTagArticles');
 });

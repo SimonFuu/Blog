@@ -16,7 +16,7 @@ class SidebarServiceProvider extends ServiceProvider
     {
         view() -> composer('frontend.layouts.widgets.sidebar', function ($view) {
             $view -> with('tags', $this -> getTags());
-            $view -> with('archives', $this -> getRecommendArchive());
+            $view -> with('articles', $this -> getRecommendArticle());
             $view -> with('ads', $this -> getAds());
             $view -> with('comments', $this -> getRecentComments());
             $view -> with('links', $this -> getFriendlyLinks());
@@ -36,15 +36,15 @@ class SidebarServiceProvider extends ServiceProvider
     private function getTags()
     {
         return [
-            (object) ['id' => 1, 'name' => '11', 'archiveCount' => rand(1,10)],
-            (object) ['id' => 2, 'name' => '测试2', 'archiveCount' => rand(1,10)],
-            (object) ['id' => 3, 'name' => '测试3', 'archiveCount' => rand(1,10)],
-            (object) ['id' => 4, 'name' => '测试4', 'archiveCount' => rand(1,10)],
-            (object) ['id' => 5, 'name' => '测试5', 'archiveCount' => rand(1,10)],
+            (object) ['id' => 1, 'name' => '11', 'articleCount' => rand(1,10)],
+            (object) ['id' => 2, 'name' => '测试2', 'articleCount' => rand(1,10)],
+            (object) ['id' => 3, 'name' => '测试3', 'articleCount' => rand(1,10)],
+            (object) ['id' => 4, 'name' => '测试4', 'articleCount' => rand(1,10)],
+            (object) ['id' => 5, 'name' => '测试5', 'articleCount' => rand(1,10)],
         ];
     }
 
-    private function getRecommendArchive()
+    private function getRecommendArticle()
     {
         return [
             (object) ['id' => '1', 'title' => '测试的001'],
@@ -63,12 +63,12 @@ class SidebarServiceProvider extends ServiceProvider
     private function getRecentComments()
     {
         return [
-            (object) ['avatar' => 'http://qzapp.qlogo.cn/qzapp/101206152/D4DDDC8FDB84389D261134E5506A5F47/100', 'nickname' => '测试1', 'time' => '1天前', 'comment' => '测试评论内容', 'archiveId' => 1, 'archiveTitle' => '测试'],
-            (object) ['avatar' => 'http://qzapp.qlogo.cn/qzapp/101206152/D4DDDC8FDB84389D261134E5506A5F47/100', 'nickname' => '测试2', 'time' => '2天前', 'comment' => '测试评论内容', 'archiveId' => 1, 'archiveTitle' => '测试'],
-            (object) ['avatar' => 'http://qzapp.qlogo.cn/qzapp/101206152/D4DDDC8FDB84389D261134E5506A5F47/100', 'nickname' => '测试3', 'time' => '3天前', 'comment' => '测试评论内容', 'archiveId' => 1, 'archiveTitle' => '测试'],
-            (object) ['avatar' => 'http://qzapp.qlogo.cn/qzapp/101206152/D4DDDC8FDB84389D261134E5506A5F47/100', 'nickname' => '测试4', 'time' => '4天前', 'comment' => '测试评论内容', 'archiveId' => 1, 'archiveTitle' => '测试'],
-            (object) ['avatar' => 'http://qzapp.qlogo.cn/qzapp/101206152/D4DDDC8FDB84389D261134E5506A5F47/100', 'nickname' => '测试5', 'time' => '5天前', 'comment' => '测试评论内容', 'archiveId' => 1, 'archiveTitle' => '测试'],
-            (object) ['avatar' => 'http://qzapp.qlogo.cn/qzapp/101206152/D4DDDC8FDB84389D261134E5506A5F47/100', 'nickname' => '测试6', 'time' => '6天前', 'comment' => '测试评论内容', 'archiveId' => 1, 'archiveTitle' => '测试'],
+            (object) ['avatar' => 'http://qzapp.qlogo.cn/qzapp/101206152/D4DDDC8FDB84389D261134E5506A5F47/100', 'nickname' => '测试1', 'time' => '1天前', 'comment' => '测试评论内容', 'articleId' => 1, 'articleTitle' => '测试'],
+            (object) ['avatar' => 'http://qzapp.qlogo.cn/qzapp/101206152/D4DDDC8FDB84389D261134E5506A5F47/100', 'nickname' => '测试2', 'time' => '2天前', 'comment' => '测试评论内容', 'articleId' => 1, 'articleTitle' => '测试'],
+            (object) ['avatar' => 'http://qzapp.qlogo.cn/qzapp/101206152/D4DDDC8FDB84389D261134E5506A5F47/100', 'nickname' => '测试3', 'time' => '3天前', 'comment' => '测试评论内容', 'articleId' => 1, 'articleTitle' => '测试'],
+            (object) ['avatar' => 'http://qzapp.qlogo.cn/qzapp/101206152/D4DDDC8FDB84389D261134E5506A5F47/100', 'nickname' => '测试4', 'time' => '4天前', 'comment' => '测试评论内容', 'articleId' => 1, 'articleTitle' => '测试'],
+            (object) ['avatar' => 'http://qzapp.qlogo.cn/qzapp/101206152/D4DDDC8FDB84389D261134E5506A5F47/100', 'nickname' => '测试5', 'time' => '5天前', 'comment' => '测试评论内容', 'articleId' => 1, 'articleTitle' => '测试'],
+            (object) ['avatar' => 'http://qzapp.qlogo.cn/qzapp/101206152/D4DDDC8FDB84389D261134E5506A5F47/100', 'nickname' => '测试6', 'time' => '6天前', 'comment' => '测试评论内容', 'articleId' => 1, 'articleTitle' => '测试'],
         ];
     }
 
