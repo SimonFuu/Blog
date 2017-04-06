@@ -19,9 +19,14 @@ class CatalogsController extends Controller
             -> leftJoin('catalogs', 'catalogs.id', '=', 'articles.catalogId')
             -> leftJoin('tags', 'tags.id', '=', 'articles.tagId')
             -> where('articles.isDelete', 0)
-            -> where('articles.catalogId', $id)
+            -> where(function ($query) use ($id) {
+                if ($id > 1) {
+                    $query -> where('articles.catalogId', $id);
+                }
+            })
             -> where('articles.publishedAt', '<=', date('Y-m-d H:i:s'))
-            -> paginate(env('APP_FRONTEND_PAGINATION_PER_PAGE'));
+            -> orderBy('articles.publishedAt', 'DESC')
+            -> paginate(env('ARTICLES_PAGINATION_COUNT'));
         return view('frontend.index', ['articles' => $articles]);
     }
 }

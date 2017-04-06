@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\View;
 
@@ -35,24 +36,23 @@ class SidebarServiceProvider extends ServiceProvider
 
     private function getTags()
     {
-        return [
-            (object) ['id' => 1, 'name' => '11', 'articleCount' => rand(1,10)],
-            (object) ['id' => 2, 'name' => '测试2', 'articleCount' => rand(1,10)],
-            (object) ['id' => 3, 'name' => '测试3', 'articleCount' => rand(1,10)],
-            (object) ['id' => 4, 'name' => '测试4', 'articleCount' => rand(1,10)],
-            (object) ['id' => 5, 'name' => '测试5', 'articleCount' => rand(1,10)],
-        ];
+        return DB::table('tags')
+            -> select('id', 'name', 'articlesCount')
+            -> where('isDelete', 0)
+            -> get();
     }
 
     private function getRecommendArticle()
     {
-        return [
-            (object) ['id' => '1', 'title' => '测试的001'],
-            (object) ['id' => '2', 'title' => '测试的002'],
-            (object) ['id' => '3', 'title' => '测试的003'],
-            (object) ['id' => '4', 'title' => '测试的004'],
-            (object) ['id' => '5', 'title' => '测试的005'],
-        ];
+        return DB::table('recommend_articles')
+            -> select('articles.id', 'articles.title')
+            -> leftJoin('articles', 'articles.id', '=', 'recommend_articles.articleId')
+            -> where('recommend_articles.isDelete', 0)
+            -> where('articles.isDelete', 0)
+            -> where('articles.publishedAt', '<=', date('Y-m-d H:i:s'))
+            -> orderBy('recommend_articles.displayWeight', 'DESC')
+            -> limit(env('ARTICLES_RECOMMEND_COUNT'))
+            -> get();
     }
 
     private function getAds()

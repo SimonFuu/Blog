@@ -45,7 +45,7 @@ class ArticlesController extends Controller
             -> select('id', 'title')
             -> where('isDelete', 0)
             -> where('publishedAt', '<', $date)
-            -> orderBy('publishedAt', 'ASC')
+            -> orderBy('publishedAt', 'DESC')
             -> first();
     }
 }

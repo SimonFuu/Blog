@@ -7,7 +7,7 @@
             @foreach($tags as $key => $tag)
                 @php( $offset = ($key <= $maxOffset) ? $key : ($key % $maxOffset))
                 <a class="article-tag btn btn-xs btn-{{ $layout[$offset] }}" type="button" href="/tag/{{ $tag -> id }}">
-                    {{ $tag -> name }} <span class="badge">{{ $tag -> articleCount }}</span>
+                    {{ $tag -> name }} <span class="badge">{{ $tag -> articlesCount }}</span>
                 </a>
             @endforeach
         </div>
@@ -16,7 +16,7 @@
 
 @if(count($articles) > 0)
     <div class="module recommend-article">
-        <h4>置顶推荐</h4>
+        <h4>推荐阅读</h4>
         <div class="article-main">
             @foreach($articles as $article)
                 <h5>
@@ -67,7 +67,7 @@
 @endif
 
 <div class="module search-article">
-{!! Form::open(['url' => '/article/search', 'method' => 'GET', 'class' => 'form-inline', 'role' => 'form']) !!}
+{!! Form::open(['url' => '/search', 'method' => 'GET', 'class' => 'form-inline', 'role' => 'form']) !!}
 <!-- class include {'form-horizontal'|'form-inline'} -->
     <!--- Words Field --->
     <div class="form-group">

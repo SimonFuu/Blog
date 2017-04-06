@@ -21,7 +21,8 @@ class TagsController extends Controller
             -> where('articles.isDelete', 0)
             -> where('articles.tagId', $id)
             -> where('articles.publishedAt', '<=', date('Y-m-d H:i:s'))
-            -> paginate(env('APP_FRONTEND_PAGINATION_PER_PAGE'));
+            -> orderBy('articles.publishedAt', 'DESC')
+            -> paginate(env('ARTICLES_PAGINATION_COUNT'));
         return view('frontend.index', ['articles' => $articles]);
     }
 }

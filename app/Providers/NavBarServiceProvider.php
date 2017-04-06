@@ -18,7 +18,7 @@ class NavBarServiceProvider extends ServiceProvider
     {
         view() -> composer('frontend.layouts.widgets.navigation', function($view) use ($request) {
             $view -> with('catalogs', $this -> getCatalogs());
-            $view -> with('uri', $request -> getRequestUri());
+            $view -> with('uri', $request -> getPathInfo());
         });
     }
 
@@ -42,9 +42,9 @@ class NavBarServiceProvider extends ServiceProvider
                 -> where('isDelete', 0)
                 -> orderBy('displayWeight' , 'ASC')
                 -> get();
-            Redis::set('MENUS', $catalogs);
+            Redis::set('CATALOGS', $catalogs);
         } else {
-            $menus = json_decode($catalogs);
+            $catalogs = json_decode($catalogs);
         }
         return $catalogs;
     }

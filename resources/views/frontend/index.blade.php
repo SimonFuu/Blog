@@ -55,9 +55,9 @@
             </div>
         </div>
     @endforeach
-    @if($articles -> lastPage() > 1)
+    @if ($articles -> hasPages())
         <div class="module article-pagination">
-            {{ $articles -> links() }}
+            {{ $articles -> links('pagination', ['articles' => $articles]) }}
         </div>
     @endif
 @endsection

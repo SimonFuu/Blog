@@ -53,7 +53,11 @@ a:hover {
     background: #ffffff;
     margin-bottom: 10px;
     border-radius: 5px;
-    padding: 3px 20px 20px;
+    padding: 3px 20px;
+}
+
+.contents-body {
+    padding-bottom: 20px;
 }
 
 .index-article-content-thumb {
@@ -144,6 +148,10 @@ a:hover {
 /**
  * 右侧文章标签
  */
+.article-tags {
+    padding-bottom: 8px;
+}
+
 .article-tag {
     margin: 3px 1px;
 }
@@ -299,6 +307,11 @@ a:hover {
     80% {opacity: 0.2;}
     90% {opacity: 0.1;}
     100% {opacity: 0;}
+}
+
+.article-pagination {
+    text-align: center;
+    /*padding-bottom: 3px !important;*/
 }
 
 /**

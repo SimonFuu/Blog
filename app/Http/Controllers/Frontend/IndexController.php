@@ -19,7 +19,8 @@ class IndexController extends Controller
             -> leftJoin('tags', 'tags.id', '=', 'articles.tagId')
             -> where('articles.isDelete', 0)
             -> where('articles.publishedAt', '<=', date('Y-m-d H:i:s'))
-            -> paginate(env('APP_FRONTEND_PAGINATION_PER_PAGE'));
+            -> orderBy('articles.publishedAt', 'DESC')
+            -> paginate(env('ARTICLES_PAGINATION_COUNT'));
         return view('frontend.index', ['articles' => $articles]);
     }
 }
