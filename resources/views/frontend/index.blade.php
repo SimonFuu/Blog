@@ -47,7 +47,7 @@
                                 {{ $arc -> abstractContent }}
                             </p>
                         </div>
-                        <div class="read-content">
+                        <div class="pull-right">
                             <a href="/article/{{ $arc -> id }}" class="btn btn-info btn-xs">阅读全文</a>
                         </div>
                     </div>

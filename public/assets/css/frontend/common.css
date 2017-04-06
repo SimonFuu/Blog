@@ -137,13 +137,6 @@ a:hover {
     height: 128px;
     overflow: hidden;
 }
-/**
- * 左侧文章主体-阅读全文按钮
- */
-.read-content {
-    margin-right: 20px;
-    text-align: right;
-}
 
 /**
  * 右侧文章标签
