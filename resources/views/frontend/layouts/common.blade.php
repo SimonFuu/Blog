@@ -16,6 +16,7 @@
             <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         @endif
         <link rel="stylesheet" href="/assets/css/frontend/common.css?{{ time() }}">
+        <link rel="Shortcut Icon" href="{{ env('IMG_SERVER') }}/favicon.ico">
     </head>
     <body>
         @include('frontend.layouts.widgets.navigation')

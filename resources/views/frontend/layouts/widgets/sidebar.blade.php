@@ -59,10 +59,9 @@
         <h4>友情链接</h4>
         <div class="links-main">
             @foreach($links as $link)
-                <h5><a href="{{ $link -> link }}" target="_blank"><i class="fa fa-link" aria-hidden="true"></i> {{ $link -> title }}</a></h5>
+                <h5><a href="{{ $link -> link }}" target="_blank"><i class="fa fa-link" aria-hidden="true"></i> {{ $link -> name }}</a></h5>
             @endforeach
         </div>
-
     </div>
 @endif
 

@@ -35,4 +35,9 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'weibo' => [
+        'client_id' => '2785719256',
+        'client_secret' => '29784adcb76395378ff8670c165a2688',
+        'redirect' => 'http://www.fushupeng.com'
+    ]
 ];

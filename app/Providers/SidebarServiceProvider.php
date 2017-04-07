@@ -74,14 +74,11 @@ class SidebarServiceProvider extends ServiceProvider
 
     private function getFriendlyLinks()
     {
-        return [
-            (object) ['link' => 'http://www.baidu.com', 'title' => '测试1'],
-            (object) ['link' => 'http://www.baidu.com', 'title' => '测试2'],
-            (object) ['link' => 'http://www.baidu.com', 'title' => '测试3'],
-            (object) ['link' => 'http://www.baidu.com', 'title' => '测试4'],
-            (object) ['link' => 'http://www.baidu.com', 'title' => '测试5'],
-            (object) ['link' => 'http://www.baidu.com', 'title' => '测试6'],
-            (object) ['link' => 'http://www.baidu.com', 'title' => '测试7'],
-        ];
+        return DB::table('friendly_links')
+            -> select('name', 'link')
+            -> where('status', 1)
+            -> where('isDelete', 0)
+            -> orderBy('displayWeight', 'DESC')
+            -> get();
     }
 }

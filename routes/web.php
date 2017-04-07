@@ -20,4 +20,6 @@ Route::group(['prefix' => '/', 'namespace' => 'Frontend'], function () {
     Route::get('/article/{id}', 'ArticlesController@getArticle');
     Route::get('/catalog/{id}', 'CatalogsController@getCatalogArticles');
     Route::get('/tag/{id}', 'TagsController@getTagArticles');
+    Route::get('/oauth/{service}', 'AuthController@redirectToProvider');
+    Route::get('/oauth/{service}/callback', 'AuthController@handleProviderCallback');
 });

@@ -32,6 +32,26 @@ a:hover {
     margin-bottom: 0 !important;
     height: 5px;
 }
+
+.front-login-user-avatar {
+    margin-top: 10px;
+    width: 30px;
+    height: 30px;
+    margin-bottom: 10px;
+}
+.front-login-user-info {
+    height: 50px !important;
+    overflow: hidden;
+}
+.front-login-user-info span {
+    color: #9d9d9d;
+    display: inline-block;
+    margin-left: 10px;
+}
+.front-login-user-logout {
+    margin-left: -5px;
+    display: inline-block !important;
+}
 /**
  * 页面主体及footer
  */
@@ -125,8 +145,6 @@ a:hover {
         bottom: 0;
     }
 }
-
-
 
 .index-article-thumb {
     height: 150px;
@@ -304,7 +322,6 @@ a:hover {
 
 .article-pagination {
     text-align: center;
-    /*padding-bottom: 3px !important;*/
 }
 
 /**
@@ -314,6 +331,33 @@ a:hover {
    text-align: center;
 }
 
+/**
+ * 发布评论区域
+ */
+.comment-submit-module {
+    padding: 40px 40px 0 !important;
+}
+
+.comment-submit textarea{
+    height: 150px !important;
+}
+
+.comment-submit-user-info {
+    display: inline-block;
+}
+
+.comment-submit-user-avatar {
+    height: 46px;
+    width: 46px;
+}
+
+.comment-submit-user-nickname {
+    display: inline-block;
+    margin-left: 10px;
+}
+/**
+ * footer 版权信息、声明等
+ */
 .copyright-content {
     margin: 20px 0 20px;
 }

@@ -39,7 +39,23 @@
             <div class="next-article">下一篇：{!! is_null($article -> nextArticle) ? '没有了' : sprintf('<a href="/article/%s">%s</a>', $article -> nextArticle -> id, $article -> nextArticle -> title) !!}</div>
         </div>
     </div>
-    <div class="module comment-module">
-        评论区域
+    <div class="module comment-submit-module">
+        {!! Form::open(['url' => '/article/comment', 'method' => 'post', 'class' => 'form-horizontal', 'role' => 'form']) !!}
+            <!--- Comment Field --->
+            <div class="form-group">
+                <div class="comment-submit">
+                    {!! Form::textarea('comment', null, ['class' => 'form-control']) !!}
+                </div>
+            </div>
+            <div class="form-group comment-submit-button">
+                <div class="comment-submit-user-info pull-left">
+                    <img class="comment-submit-user-avatar" src="http://qzapp.qlogo.cn/qzapp/101206152/B5A281DC85C5AF7E7C4EA1DEC5E74DBA/100" alt="">
+                    <div class="comment-submit-user-nickname">用户名</div>
+                </div>
+                <div class="pull-right">
+                    <button class="btn btn-primary btn-lg">提交</button>
+                </div>
+            </div>
+        {!! Form::close() !!}
     </div>
 @endsection
