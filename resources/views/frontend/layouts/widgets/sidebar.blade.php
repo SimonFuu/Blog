@@ -38,8 +38,8 @@
         <h4>最近评论</h4>
         <div class="comment-main">
             @foreach($comments as $comment)
+                <img src="{{ $comment -> avatar }}" alt="头像" class="index-comment-avatar">
                 <ul>
-                    <img src="{{ $comment -> avatar }}" alt="头像" class="index-comment-avatar">
                     <li class="comment-nickname">
                         {{ $comment -> nickname }}
                         <span class="pull-right index-comment-time"> {{ $comment -> time }}</span>

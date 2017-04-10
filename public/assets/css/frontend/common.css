@@ -334,8 +334,14 @@ a:hover {
 /**
  * 发布评论区域
  */
+.comments-module {
+    padding-right: 0;
+    padding-left: 0;
+    padding-bottom: 50px;
+}
+
 .comment-submit-module {
-    padding: 40px 40px 0 !important;
+    padding: 40px 50px 0 !important;
 }
 
 .comment-submit textarea{
@@ -346,14 +352,77 @@ a:hover {
     display: inline-block;
 }
 
+.comment-submit-user-info ul{
+    margin-bottom: 0;
+}
+
 .comment-submit-user-avatar {
     height: 46px;
     width: 46px;
+    position: absolute;
+    left: 45px;
 }
 
 .comment-submit-user-nickname {
     display: inline-block;
+    margin-left: 55px;
+    height: 46px;
+    line-height: 46px;
+}
+.comments-info {
+    margin-top: 30px;
+    margin-left: -15px;
+    margin-right: -15px;
+    height: 20px;
+}
+
+.child-comment-submit-module {
+    padding: 5px 20px 0 15px !important;
+}
+
+.comments-list {
+    border-top: 3px solid #5cb85c;
+    padding: 0 35px !important;
+    min-height: 20px;
+}
+
+.user-comment {
+    border-bottom: 1px solid #c1cad1;
+    margin-left: -20px;
+    margin-right: -20px;
+}
+
+.user-comment ul {
+    margin-top: 10px;
     margin-left: 10px;
+}
+
+.user-comment ul li {
+    list-style: none;
+}
+
+.user-comment ul li a{
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.children-comment {
+    margin-left: 50px;
+}
+
+.children-comment .article-comment-avatar {
+    left: 75px;
+}
+
+.child-comment-host {
+    color: orangered;
+    font-weight: bold;
+}
+.article-comment-avatar {
+    position: absolute;
+    left: 25px;
+    height: 40px;
+    width: 40px;
 }
 /**
  * footer 版权信息、声明等

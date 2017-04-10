@@ -49,13 +49,37 @@ var indexArticleThumb = function () {
         el.find('.div-2').stop().animate({height:0},'fast');
     }).click(function(){
         window.open($(this).find('a').attr('href'));
-    });    
+    });
 };
 
+var replayComment = function () {
+    $('.replay-comment').on('click', function () {
+        // 删除评论框
+        $('.child-comment-submit-module').remove();
+        var articleId = $(this).data('article-id');
+        var commentId = $(this).data('comment-id');
+        var userId = $(this).data('user-id');
+        var token = $('input[name=_token]').val();
+        // 构建评论框代码
+        var html =  '<li><div class="child-comment-submit-module">';
+        html += '<form method="POST" action="/article/comment" accept-charset="UTF-8" class="form-horizontal" role="form">';
+        html += '<input type="hidden" name="_token" value="' + token + '">';
+        html += '<input type="hidden" name="articleId" value="' + articleId + '">';
+        html += '<input type="hidden" name="commentId" value="' + commentId + '">';
+        html += '<input type="hidden" name="userId" value="' + userId + '">';
+        html += '<div class="form-group"><div class="comment-submit">';
+        html += '<textarea class="form-control" name="comment" required cols="50" rows="10"></textarea>';
+        html += '</div></div><div class="form-group comment-submit-button">';
+        html += '<div class="pull-right"><button type="submit" class="btn btn-primary">发布评论</button></div></div></form></div></li>';
+        // 追加评论框
+        $(this).parents('ul').append(html);
+    });
+};
 
 $(function () {
     toTop();
     bodyScroll();
     indexArticleThumb();
+    replayComment();
 });
 

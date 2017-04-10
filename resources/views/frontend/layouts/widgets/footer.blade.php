@@ -19,11 +19,10 @@
                 <h4 class="modal-title" id="login-modal-label">您可直接使用以下账号直接登陆</h4>
             </div>
             <div class="modal-body">
-
+                用户登陆后，第三方回调之后，判断该用户是否存在，如果不存在，则进行绑定邮件的操作，如果存在，则正常跳转回主页！
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                {{--<button type="button" class="btn btn-primary">Send message</button>--}}
             </div>
         </div>
     </div>
