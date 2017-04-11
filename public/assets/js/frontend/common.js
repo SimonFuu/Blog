@@ -48,7 +48,7 @@ var indexArticleThumb = function () {
         el.find('.div-1').stop().animate({width:0},'fast');
         el.find('.div-2').stop().animate({height:0},'fast');
     }).click(function(){
-        window.open($(this).find('a').attr('href'));
+        window.location.href = $(this).find('a').attr('href');
     });
 };
 
@@ -70,10 +70,15 @@ var replayComment = function () {
         html += '<div class="form-group"><div class="comment-submit">';
         html += '<textarea class="form-control" name="comment" required cols="50" rows="10"></textarea>';
         html += '</div></div><div class="form-group comment-submit-button">';
-        html += '<div class="pull-right"><button type="submit" class="btn btn-primary">发布评论</button></div></div></form></div></li>';
+        html += '<div class="pull-right"><button type="button" class="btn btn-default" onclick="closeReplayTextArea()">关闭</button>';
+        html += '<button type="submit" class="btn btn-primary">发布评论</button></div></div></form></div></li>';
         // 追加评论框
         $(this).parents('ul').append(html);
     });
+};
+
+var closeReplayTextArea = function () {
+    $('.child-comment-submit-module').remove();
 };
 
 $(function () {

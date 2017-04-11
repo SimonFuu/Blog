@@ -32,7 +32,7 @@
                 <div class="row index-articles-body">
                     <div class="col-md-4">
                         <div class="index-article-thumb-container">
-                            <a href="/article/{{ $arc -> id }}"><img class="index-article-thumb img-thumbnail" src="{{ $arc -> thumb }}" alt="文章缩略图"></a>
+                            <a href="/article/{{ $arc -> id }}" target="_self"><img class="index-article-thumb img-thumbnail" src="{{ $arc -> thumb }}" alt="文章缩略图"></a>
                             <P class=companyInfo>阅读全文</P>
                             <div class="cornerTop div-2"></div>
                             <div class="cornerRight div-1"></div>
@@ -48,7 +48,7 @@
                             </p>
                         </div>
                         <div class="pull-right">
-                            <a href="/article/{{ $arc -> id }}" class="btn btn-info btn-xs">阅读全文</a>
+                            <a href="/article/{{ $arc -> id }}" class="btn btn-info btn-xs" target="_self">阅读全文</a>
                         </div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
     @endforeach
     @if ($articles -> hasPages())
         <div class="module article-pagination">
-            {{ $articles -> links('pagination', ['articles' => $articles]) }}
+            {{ $articles -> links('pagination', ['items' => $articles]) }}
         </div>
     @endif
 @endsection

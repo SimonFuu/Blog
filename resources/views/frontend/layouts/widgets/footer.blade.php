@@ -6,7 +6,7 @@
         <a href="https://laravel.com/" target="_blank">Laravel</a></p>
     <p>
         <i class="fa fa-copyright"></i> 2017 - {{ date('Y') }} By Simon Fu,
-        E-Mail: <a href="mailto:me@fushupeng.com">me@fushupeng.com</a>
+        E-Mail: <a href="mailto:contact@fushupeng.com">contact@fushupeng.com</a>
     </p>
     <p>Some Rights Reserved: <a href="http://www.fushupeng.com">www.fushupeng.com</a></p>
 </div>

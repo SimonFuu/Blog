@@ -414,10 +414,15 @@ a:hover {
     left: 75px;
 }
 
+.comment-submit-button button{
+    margin-left: 10px;
+}
+
 .child-comment-host {
     color: orangered;
     font-weight: bold;
 }
+
 .article-comment-avatar {
     position: absolute;
     left: 25px;

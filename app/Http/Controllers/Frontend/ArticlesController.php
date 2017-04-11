@@ -21,12 +21,22 @@ class ArticlesController extends Controller
             -> where('articles.id', $id)
             -> where('articles.publishedAt', '<=', date('Y-m-d H:i:s'))
             -> first();
+        $comments = DB::table('comments')
+            -> select('comments.id', 'comments.articleId', 'comments.uId', 'comments.parentCommentId', 'comments.baseCommentId',
+                'comments.content', 'users.name', 'users.avatar', 'comments.createdAt',
+                DB::raw('IFNULL((SELECT bl_users.name FROM bl_users WHERE bl_users.id = bl_comments.commentToUId and 
+                bl_users.isDelete = 0), "") as `to`'))
+            -> leftJoin('users', 'users.id', '=', 'comments.uId')
+            -> where('comments.isDelete', 0)
+            -> where('comments.articleId', $id)
+            -> orderBy('comments.createdAt', 'DESC')
+            -> get();
         if (is_null($article)) {
             abort(404);
         }
         $article -> nextArticle = $this -> getNextArticle($article -> publishedAt);
         $article -> prevArticle = $this -> getPrevArticle($article -> publishedAt);
-        return view('frontend.article', ['article' => $article]);
+        return view('frontend.article', ['article' => $article, 'comments' => $comments]);
     }
 
     private function getNextArticle($date = '1990-01-01 00:00:00')

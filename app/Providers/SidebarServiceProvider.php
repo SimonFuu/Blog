@@ -62,14 +62,28 @@ class SidebarServiceProvider extends ServiceProvider
 
     private function getRecentComments()
     {
-        return [
-            (object) ['avatar' => 'http://qzapp.qlogo.cn/qzapp/101206152/D4DDDC8FDB84389D261134E5506A5F47/100', 'nickname' => '测试1', 'time' => '1天前', 'comment' => '测试评论内容', 'articleId' => 1, 'articleTitle' => '测试'],
-            (object) ['avatar' => 'http://qzapp.qlogo.cn/qzapp/101206152/D4DDDC8FDB84389D261134E5506A5F47/100', 'nickname' => '测试2', 'time' => '2天前', 'comment' => '测试评论内容', 'articleId' => 1, 'articleTitle' => '测试'],
-            (object) ['avatar' => 'http://qzapp.qlogo.cn/qzapp/101206152/D4DDDC8FDB84389D261134E5506A5F47/100', 'nickname' => '测试3', 'time' => '3天前', 'comment' => '测试评论内容', 'articleId' => 1, 'articleTitle' => '测试'],
-            (object) ['avatar' => 'http://qzapp.qlogo.cn/qzapp/101206152/D4DDDC8FDB84389D261134E5506A5F47/100', 'nickname' => '测试4', 'time' => '4天前', 'comment' => '测试评论内容', 'articleId' => 1, 'articleTitle' => '测试'],
-            (object) ['avatar' => 'http://qzapp.qlogo.cn/qzapp/101206152/D4DDDC8FDB84389D261134E5506A5F47/100', 'nickname' => '测试5', 'time' => '5天前', 'comment' => '测试评论内容', 'articleId' => 1, 'articleTitle' => '测试'],
-            (object) ['avatar' => 'http://qzapp.qlogo.cn/qzapp/101206152/D4DDDC8FDB84389D261134E5506A5F47/100', 'nickname' => '测试6', 'time' => '6天前', 'comment' => '测试评论内容', 'articleId' => 1, 'articleTitle' => '测试'],
-        ];
+        $comments = DB::table('comments')
+            -> select('users.avatar', 'users.name', 'comments.articleId', 'comments.content',
+                DB::raw('UNIX_TIMESTAMP(bl_comments.createdAt) as createdAt'), 'articles.title')
+            -> leftJoin('users', 'users.id', '=', 'comments.uId')
+            -> leftJoin('articles', 'articles.id', '=', 'comments.articleId')
+            -> orderBy('comments.createdAt', 'DESC')
+            -> where('comments.isDelete', 0)
+            -> where('users.isDelete', 0)
+            -> where('articles.isDelete', 0)
+            -> limit(10)
+            -> get();
+        if (count($comments) != 0) {
+            $now = time();
+            foreach ($comments as $comment) {
+                $comment -> createdAt = $this -> dateTimeFormat($now, $comment -> createdAt);
+                $comment -> title = mb_strlen($comment -> title) > 10 ?
+                    sprintf('%s...', mb_substr($comment -> title, 0, 10)) : $comment -> title;
+                $comment -> content = mb_strlen($comment -> content) > 30 ?
+                    sprintf('%s...', mb_substr($comment -> content, 0, 30)) : $comment -> content;
+            }
+        }
+        return $comments;
     }
 
     private function getFriendlyLinks()
@@ -80,5 +94,21 @@ class SidebarServiceProvider extends ServiceProvider
             -> where('isDelete', 0)
             -> orderBy('displayWeight', 'DESC')
             -> get();
+    }
+
+    private function dateTimeFormat($now = 0, $timestamp = 0)
+    {
+        $offset = $now - $timestamp;
+        if ($offset >= 604800) {
+            return date('Y-m-d H:i:s');
+        } elseif ($offset >= 86400) {
+            return sprintf('%s天前', floor($offset / 86400));
+        } elseif ($offset >= 3600) {
+            return sprintf('%s小时前', floor($offset / 3600));
+        } elseif ($offset >= 60) {
+            return sprintf('%s分钟前', floor($offset / 60));
+        } else {
+            return '刚刚';
+        }
     }
 }

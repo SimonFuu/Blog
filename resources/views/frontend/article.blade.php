@@ -65,43 +65,61 @@
                 <div class="pull-left">
                     最新评论
                 </div>
-                <div class="pull-right">共计0条评论</div>
+                <div class="pull-right">共计{{ count($comments) }}条评论</div>
             </div>
         </div>
         {{---------------------------------评论列表---------------------------------------}}
         <div class="comments-list">
-            <div class="user-comment">
-                <img src="http://qzapp.qlogo.cn/qzapp/101206152/B5A281DC85C5AF7E7C4EA1DEC5E74DBA/100" alt="头像" class="article-comment-avatar">
-                <ul>
-                    <li class="comment-nickname">昵称：评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容</li>
-                    <li>{{ date('Y-m-d H:i:s') }}
-                        <a href="javascript:;" data-article-id="{{ $article -> id }}" data-comment-id="3" data-user-id="1" class="replay-comment">回复</a>
-                        {{--只有本人或者管理员才会显示删除--}}
-                        <a href="javascript:;" data-comment-id="">删除</a></li>
-                </ul>
-                <div class="children-comment">
-                    <img src="http://qzapp.qlogo.cn/qzapp/101206152/B5A281DC85C5AF7E7C4EA1DEC5E74DBA/100" alt="头像" class="article-comment-avatar">
-                    <ul>
-                        <li class="comment-nickname"><span class="child-comment-host">昵称</span> 回复 昵称：评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容</li>
-                        <li>{{ date('Y-m-d H:i:s') }}
-                            <a href="javascript:;" data-article-id="{{ $article -> id }}" data-comment-id="2" data-user-id="1" class="replay-comment">回复</a>
-                            {{--只有本人或者管理员才会显示删除--}}
-                            <a href="javascript:;" data-comment-id="">删除</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="user-comment">
-                <img src="http://qzapp.qlogo.cn/qzapp/101206152/B5A281DC85C5AF7E7C4EA1DEC5E74DBA/100" alt="头像" class="article-comment-avatar">
-                <ul>
-                    <li class="comment-nickname">昵称：评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容</li>
-                    <li>{{ date('Y-m-d H:i:s') }}
-                        <a href="javascript:;" data-article-id="{{ $article -> id }}" data-comment-id="1" data-user-id="1" class="replay-comment">回复</a>
-                        {{--只有本人或者管理员才会显示删除--}}
-                        <a href="javascript:;" data-comment-id="">删除</a>
-                    </li>
-                </ul>
-            </div>
+            @php
+                foreach ($comments as $comment) {
+                    if ($comment -> baseCommentId == 0) {
+                        $parentComments[] = $comment;
+                    } else {
+                        $replays[$comment -> baseCommentId][] = $comment;
+                    }
+                }
+                foreach ($parentComments as $comment) {
+                    if (isset($replays[$comment -> id])) {
+                        $comment -> replays = $replays[$comment -> id];
+                    } else {
+                        $comment -> replays = null;
+                    }
+                }
 
+            @endphp
+            @foreach($parentComments as $comment)
+                <div class="user-comment">
+                    <img src="{{ $comment -> avatar }}" alt="头像" class="article-comment-avatar">
+                    <ul>
+                        <li class="comment-nickname">{{ $comment -> name }}：{{ $comment -> content }}</li>
+                        <li>{{ $comment -> createdAt }}
+                            <a href="javascript:;" data-article-id="{{ $article -> id }}" data-comment-id="{{ $comment -> id }}" data-user-id="{{ $comment -> uId }}" class="replay-comment">回复</a>
+                            {{--只有本人或者管理员才会显示删除--}}
+                            <a href="javascript:;" data-comment-id="">删除</a>
+                        </li>
+                    </ul>
+                    @if(!is_null($comment -> replays))
+                        @foreach($comment -> replays as $replay)
+                            <div class="children-comment">
+                                <img src="{{ $replay -> avatar }}" alt="头像" class="article-comment-avatar">
+                                <ul>
+                                    <li class="comment-nickname">
+                                        @if($replay -> parentCommentId != $comment -> id)
+                                            <span class="child-comment-host">{{ $replay -> name }}</span> 回复 {{ $replay -> to }}：{{ $replay -> content }}
+                                        @else
+                                            {{ $replay -> name }}：{{ $replay -> content }}
+                                        @endif
+                                    </li>
+                                    <li>{{ $replay -> createdAt }}
+                                        <a href="javascript:;" data-article-id="{{ $article -> id }}" data-comment-id="{{ $replay -> id }}" data-user-id="{{ $replay -> uId }}" class="replay-comment">回复</a>
+                                        {{--只有本人或者管理员才会显示删除--}}
+                                        <a href="javascript:;" data-comment-id="">删除</a></li>
+                                </ul>
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
+            @endforeach
         </div>
     </div>
 

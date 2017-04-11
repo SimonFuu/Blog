@@ -41,13 +41,13 @@
                 <img src="{{ $comment -> avatar }}" alt="头像" class="index-comment-avatar">
                 <ul>
                     <li class="comment-nickname">
-                        {{ $comment -> nickname }}
-                        <span class="pull-right index-comment-time"> {{ $comment -> time }}</span>
+                        {{ $comment -> name }}
+                        <span class="pull-right index-comment-time"> {{ $comment -> createdAt }}</span>
                     </li>
                     <li class="comment-article">
-                        在"<a href="/article/{{ $comment -> articleId }}">{{ $comment -> articleTitle }}</a>"中评论：
+                        在"<a href="/article/{{ $comment -> articleId }}">{{ $comment -> title }}</a>"中评论：
                     </li>
-                    <li class="comment-content">{{ $comment -> comment }}</li>
+                    <li class="comment-content">{{ $comment -> content }}</li>
                 </ul>
             @endforeach
         </div>
