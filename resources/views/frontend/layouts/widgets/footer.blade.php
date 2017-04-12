@@ -10,22 +10,50 @@
     </p>
     <p>Some Rights Reserved: <a href="http://www.fushupeng.com">www.fushupeng.com</a></p>
 </div>
-{{--登陆模态框--}}
-<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-label">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="login-modal-label">您可直接使用以下账号直接登陆</h4>
-            </div>
-            <div class="modal-body">
-                用户登陆后，第三方回调之后，判断该用户是否存在，如果不存在，则进行绑定邮件的操作，如果存在，则正常跳转回主页！
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+@if(!Auth::check())
+    {{--登录模态框--}}
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-label">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="login-modal-label">请登录</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="login-form">
+                        <div class="login-form-div">
+                            <form action="/login" method="post">
+                                <div class="input-group input-group-md form-group">
+                                    <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                    <input type="text" name="username" class="form-control" placeholder="用户名" value="" aria-describedby="sizing-addon1">
+                                </div>
+                                <div class="input-group input-group-md">
+                                    <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-lock"></i></span>
+                                    <input type="password" name="password" class="form-control" placeholder="密码" value="" aria-describedby="sizing-addon1">
+                                </div>
+                                <div class="login-submit">
+                                    <button class="btn btn-primary">登&nbsp;&nbsp;&nbsp;&nbsp;录</button>
+                                </div>
+                                @if ($errors->has('username') || $errors->has('password'))
+                                    <div>
+                                        <span class="help-block alert-danger">
+                                            <strong>{{ $errors->first('username') }}</strong>
+                                        </span>
+                                    </div>
+                                @endif
+                                {{ csrf_field() }}
+                            </form>
+                        </div>
+                        <div class="fast-login">
+                            快读登录
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
+@endif
 <script src="/assets/js/frontend/common.js?{{ time() }}"></script>

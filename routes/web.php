@@ -11,6 +11,7 @@
 |
 */
 
+Route::post('login', 'LoginController@commonLogin');
 Route::group(['prefix' => '/backend', 'namespace' => 'Backend'], function () {
     Route::get('/', 'IndexController@index');
 });
@@ -22,4 +23,7 @@ Route::group(['prefix' => '/', 'namespace' => 'Frontend'], function () {
     Route::get('/tag/{id}', 'TagsController@getTagArticles');
     Route::get('/oauth/{service}', 'AuthController@redirectToProvider');
     Route::get('/oauth/{service}/callback', 'AuthController@handleProviderCallback');
+    Route::group(['middleware' => 'Auth'], function () {
+
+    });
 });

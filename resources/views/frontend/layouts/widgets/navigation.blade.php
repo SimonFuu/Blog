@@ -31,14 +31,14 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if(Auth() -> check())
-                        {{--登陆成功后，显示登陆用户昵称及头像--}}
+                        {{--登录成功后，显示登录用户昵称及头像--}}
                         <li class="front-login-user-info">
                             <img class="front-login-user-avatar" src="http://qzapp.qlogo.cn/qzapp/101206152/CD318B79DE9134A62498FFB1068975F1/100" alt="">
                             <span>付淑鹏</span>
                             <a class="front-login-user-logout" href="/logout"><i class="fa fa-power-off" aria-hidden="true"></i> 退出</a>
                         </li>
                     @else
-                        <li><a data-toggle="modal" data-target="#login-modal">登陆</a></li>
+                        <li><a href="#"  data-toggle="modal" data-target="#login-modal">登录</a></li>
                     @endif
                 </ul>
             </div>

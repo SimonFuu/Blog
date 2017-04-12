@@ -59,6 +59,7 @@ var replayComment = function () {
         var articleId = $(this).data('article-id');
         var commentId = $(this).data('comment-id');
         var userId = $(this).data('user-id');
+        var baseCommentId = $(this).data('base-comment-id');
         var token = $('input[name=_token]').val();
         // 构建评论框代码
         var html =  '<li><div class="child-comment-submit-module">';
@@ -67,6 +68,7 @@ var replayComment = function () {
         html += '<input type="hidden" name="articleId" value="' + articleId + '">';
         html += '<input type="hidden" name="commentId" value="' + commentId + '">';
         html += '<input type="hidden" name="userId" value="' + userId + '">';
+        html += '<input type="hidden" name="baseCommentId" value="' + baseCommentId + '">';
         html += '<div class="form-group"><div class="comment-submit">';
         html += '<textarea class="form-control" name="comment" required cols="50" rows="10"></textarea>';
         html += '</div></div><div class="form-group comment-submit-button">';

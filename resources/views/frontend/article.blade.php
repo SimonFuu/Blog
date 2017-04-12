@@ -45,18 +45,29 @@
         <!--- Comment Field --->
             <div class="form-group">
                 <div class="comment-submit">
-                    {!! Form::textarea('comment', null, ['class' => 'form-control', 'required']) !!}
+                    @if(Auth::check())
+                        {!! Form::textarea('comment', null, ['class' => 'form-control', 'required']) !!}
+                    @else
+                        {!! Form::textarea('comment', '请先登录！', ['class' => 'form-control comment-not-login', 'required', 'disabled']) !!}
+                    @endif
                 </div>
             </div>
             <div class="form-group comment-submit-button">
                 <div class="comment-submit-user-info pull-left">
-                    <img class="comment-submit-user-avatar" src="http://qzapp.qlogo.cn/qzapp/101206152/B5A281DC85C5AF7E7C4EA1DEC5E74DBA/100" alt="">
-                    <div class="comment-submit-user-nickname">
-                        用户名
-                    </div>
+                    @if(Auth::check())
+                        <img class="comment-submit-user-avatar" src="http://qzapp.qlogo.cn/qzapp/101206152/B5A281DC85C5AF7E7C4EA1DEC5E74DBA/100" alt="">
+                        <div class="comment-submit-user-nickname">
+                            用户名
+                        </div>
+                    @else
+                        <div class="comment-submit-user-not-login">
+                            请先<a href="#" data-toggle="modal" data-target="#login-modal">登录</a>!
+                        </div>
+                    @endif
+
                 </div>
                 <div class="pull-right">
-                    <button class="btn btn-primary btn-lg">发布评论</button>
+                    <button class="btn btn-primary btn-lg" @if(!Auth::check()) {{ 'disabled' }} @endif>发布评论</button>
                 </div>
             </div>
 
@@ -70,57 +81,67 @@
         </div>
         {{---------------------------------评论列表---------------------------------------}}
         <div class="comments-list">
-            @php
-                foreach ($comments as $comment) {
-                    if ($comment -> baseCommentId == 0) {
-                        $parentComments[] = $comment;
-                    } else {
-                        $replays[$comment -> baseCommentId][] = $comment;
+            @if(count($comments) > 0)
+                @php
+                    foreach ($comments as $comment) {
+                        if ($comment -> baseCommentId == 0) {
+                            $parentComments[] = $comment;
+                        } else {
+                            $replays[$comment -> baseCommentId][] = $comment;
+                        }
                     }
-                }
-                foreach ($parentComments as $comment) {
-                    if (isset($replays[$comment -> id])) {
-                        $comment -> replays = $replays[$comment -> id];
-                    } else {
-                        $comment -> replays = null;
+                    foreach ($parentComments as $comment) {
+                        if (isset($replays[$comment -> id])) {
+                            $comment -> replays = $replays[$comment -> id];
+                        } else {
+                            $comment -> replays = null;
+                        }
                     }
-                }
 
-            @endphp
-            @foreach($parentComments as $comment)
-                <div class="user-comment">
-                    <img src="{{ $comment -> avatar }}" alt="头像" class="article-comment-avatar">
-                    <ul>
-                        <li class="comment-nickname">{{ $comment -> name }}：{{ $comment -> content }}</li>
-                        <li>{{ $comment -> createdAt }}
-                            <a href="javascript:;" data-article-id="{{ $article -> id }}" data-comment-id="{{ $comment -> id }}" data-user-id="{{ $comment -> uId }}" class="replay-comment">回复</a>
-                            {{--只有本人或者管理员才会显示删除--}}
-                            <a href="javascript:;" data-comment-id="">删除</a>
-                        </li>
-                    </ul>
-                    @if(!is_null($comment -> replays))
-                        @foreach($comment -> replays as $replay)
-                            <div class="children-comment">
-                                <img src="{{ $replay -> avatar }}" alt="头像" class="article-comment-avatar">
-                                <ul>
-                                    <li class="comment-nickname">
-                                        @if($replay -> parentCommentId != $comment -> id)
-                                            <span class="child-comment-host">{{ $replay -> name }}</span> 回复 {{ $replay -> to }}：{{ $replay -> content }}
-                                        @else
-                                            {{ $replay -> name }}：{{ $replay -> content }}
-                                        @endif
-                                    </li>
-                                    <li>{{ $replay -> createdAt }}
-                                        <a href="javascript:;" data-article-id="{{ $article -> id }}" data-comment-id="{{ $replay -> id }}" data-user-id="{{ $replay -> uId }}" class="replay-comment">回复</a>
-                                        {{--只有本人或者管理员才会显示删除--}}
-                                        <a href="javascript:;" data-comment-id="">删除</a></li>
-                                </ul>
-                            </div>
-                        @endforeach
-                    @endif
-                </div>
-            @endforeach
+                @endphp
+                @foreach($parentComments as $comment)
+                    <div class="user-comment">
+                        <img src="{{ $comment -> avatar }}" alt="头像" class="article-comment-avatar">
+                        <ul>
+                            <li class="comment-nickname">{{ $comment -> name }}：{{ $comment -> content }}</li>
+                            <li>{{ $comment -> createdAt }}
+                                @if(Auth::check())
+                                    <a href="javascript:;" data-article-id="{{ $article -> id }}" data-comment-id="{{ $comment -> id }}" data-base-comment-id="{{ $comment -> id }}" data-user-id="{{ $comment -> uId }}" class="replay-comment">回复</a>
+                                    {{--只有本人或者管理员才会显示删除--}}
+                                    @if(Auth::user() -> id == $comment -> uId || Auth::user() -> id == 1)
+                                        <a href="javascript:;" data-comment-id="{{ $comment -> id }}">删除</a>
+                                    @endif
+                                @endif
+                            </li>
+                        </ul>
+                        @if(!is_null($comment -> replays))
+                            @foreach($comment -> replays as $replay)
+                                <div class="children-comment">
+                                    <img src="{{ $replay -> avatar }}" alt="头像" class="article-comment-avatar">
+                                    <ul>
+                                        <li class="comment-nickname">
+                                            @if($replay -> parentCommentId != $comment -> id)
+                                                <span class="child-comment-host">{{ $replay -> name }}</span> 回复 {{ $replay -> to }}：{{ $replay -> content }}
+                                            @else
+                                                {{ $replay -> name }}：{{ $replay -> content }}
+                                            @endif
+                                        </li>
+                                        <li>{{ $replay -> createdAt }}
+                                            @if(Auth::check())
+                                                <a href="javascript:;" data-article-id="{{ $article -> id }}" data-base-comment-id="{{ $comment -> id }}" data-comment-id="{{ $replay -> id }}" data-user-id="{{ $replay -> uId }}" class="replay-comment">回复</a>
+                                                {{--只有本人或者管理员才会显示删除--}}
+                                                @if(Auth::user() -> id == $comment -> uId || Auth::user() -> id == 1)
+                                                    <a href="javascript:;" data-comment-id="{{ $comment -> id }}">删除</a>
+                                                @endif
+                                            @endif
+                                        </li>
+                                    </ul>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                @endforeach
+            @endif
         </div>
     </div>
-
 @endsection

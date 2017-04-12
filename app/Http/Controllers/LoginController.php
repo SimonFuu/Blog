@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -25,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -36,4 +38,21 @@ class LoginController extends Controller
     {
         $this->middleware('guest', ['except' => 'logout']);
     }
+
+    public function commonLogin(Request $request)
+    {
+        $roles = ['username' => 'required', 'password' => 'required'];
+    }
+
+    public function redirectToProvider(Request $request,$service)
+    {
+        return Socialite::driver($service)->redirect();
+    }
+
+    public function handleProviderCallback(Request $request,$service)
+    {
+        $user = Socialite::driver($service)->user();
+        dd($user);
+    }
+
 }

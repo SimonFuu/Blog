@@ -52,6 +52,19 @@ a:hover {
     margin-left: -5px;
     display: inline-block !important;
 }
+
+.login-form {
+    text-align: center;
+}
+.login-form-div {
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+}
+.login-form button {
+    margin-top: 15px;
+    width: 100%;
+}
 /**
  * 页面主体及footer
  */
@@ -344,6 +357,13 @@ a:hover {
     padding: 40px 50px 0 !important;
 }
 
+.comment-not-login {
+    text-align: center;
+    line-height: 130px;
+    font-weight: bold;
+    font-size: 24px;
+}
+
 .comment-submit textarea{
     height: 150px !important;
 }
@@ -369,6 +389,13 @@ a:hover {
     height: 46px;
     line-height: 46px;
 }
+
+.comment-submit-user-not-login {
+    display: inline-block;
+    height: 46px;
+    line-height: 46px;
+}
+
 .comments-info {
     margin-top: 30px;
     margin-left: -15px;
