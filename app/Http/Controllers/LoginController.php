@@ -73,31 +73,51 @@ class LoginController extends Controller
     public function handleProviderCallback(Request $request, $service)
     {
         $user = Socialite::driver($service)->user();
+        $email = null;
         switch ($service) {
             case 'github':
-                $userInfo = $this -> githubCallback($user);
-                break;
-            case 'qq':
+                $userInfo = $this -> isExistOauthUser($user, 1);
                 break;
             case 'weibo':
+                $userInfo = $this -> isExistOauthUser($user, 2);
+                break;
+            case 'qq':
+                $userInfo = $this -> isExistOauthUser($user, 3);
                 break;
             case 'weixin':
+                $userInfo = $this -> isExistOauthUser($user, 4);
                 break;
             default:
+                abort(404);
+                $userInfo = null;
                 break;
         }
-        $this -> login();
-        return view('frontend/register');
-
+        if (is_null($userInfo)) {
+            $data = [
+                'u-source' => $service,
+                'u-nickname' => $user -> nickname,
+                'u-avatar' => $user -> avatar,
+                'u-email' => $user -> email,
+            ];
+            return redirect('/user/bind') -> with($data);
+        } else {
+            Auth::attempt(['id' => $userInfo -> uId]);
+            return view('login');
+        }
     }
 
-    private function githubCallback($user)
+    private function isExistOauthUser($user, $source = 0)
     {
-        # TODO 第三方授权表中，检查该用户是否有关联的账户，如果有，则直接登陆，如果没有，则进行绑定！
+        return DB::table('oauth')
+            -> select('uId')
+            -> where('isDelete', 0)
+            -> where('oId', $user -> id)
+            -> where('source', $source)
+            -> first();
     }
 
-    private function login($username = '123')
+    public function bindEmailAddress(Request $request)
     {
-        # TODO 用户登陆
+        # TODO 将
     }
 }

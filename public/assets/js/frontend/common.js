@@ -88,7 +88,7 @@ var closeReplayTextArea = function () {
 var connectToOAuth = function (e) {
     var href = e.attr('href');
     var iHeight = 600;
-    var iWidth = 550;
+    var iWidth = 800;
     var iTop = (window.screen.height -30 - iHeight)/2;
     var iLeft = (window.screen.width - 10 - iWidth)/2;
     var params = 'toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, ';

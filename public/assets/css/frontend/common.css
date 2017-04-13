@@ -514,3 +514,27 @@ a:hover {
     color: red;
     font-weight: bold;
 }
+
+/**
+ * 关联邮箱页面
+ */
+.user-bind-page-header {
+    text-align: center;
+    height:100px;
+}
+
+.user-bind-page-body {
+    padding: 50px 100px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+
+.must-be-input {
+    font-weight: bold;
+    color: red;
+}
+
+.user-bind-page-submit {
+    margin-top: 15px;
+}

@@ -14,8 +14,12 @@
 Route::post('/login', 'LoginController@commonLogin');
 Route::get('/oauth/{service}', 'LoginController@redirectToProvider');
 Route::get('/oauth/{service}/callback', 'LoginController@handleProviderCallback');
+Route::get('/user/bind', function () {
+    return view('frontend.bind');
+});
+Route::post('/user/bind', 'LoginController@bindEmailAddress');
+Route::get('/logout', 'LoginController@commonLogout');
 
-Route::get('logout', 'LoginController@commonLogout');
 Route::group(['prefix' => '/backend', 'middleware' => 'backend', 'namespace' => 'Backend'], function () {
     Route::get('/', 'IndexController@index');
 });
