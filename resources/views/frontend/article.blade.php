@@ -46,31 +46,31 @@
             <div class="form-group">
                 <div class="comment-submit">
                     @if(Auth::check())
-                        {!! Form::textarea('comment', null, ['class' => 'form-control', 'required']) !!}
+                        {!! Form::textarea('content', null, ['class' => 'form-control', 'required']) !!}
                     @else
-                        {!! Form::textarea('comment', '请先登录！', ['class' => 'form-control comment-not-login', 'required', 'disabled']) !!}
+                        {!! Form::textarea('content', '请先登录！', ['class' => 'form-control comment-not-login', 'required', 'disabled']) !!}
                     @endif
                 </div>
             </div>
             <div class="form-group comment-submit-button">
                 <div class="comment-submit-user-info pull-left">
                     @if(Auth::check())
-                        <img class="comment-submit-user-avatar" src="http://qzapp.qlogo.cn/qzapp/101206152/B5A281DC85C5AF7E7C4EA1DEC5E74DBA/100" alt="">
+                        <img class="comment-submit-user-avatar" src="{{ Auth::user() -> avatar }}" alt="">
                         <div class="comment-submit-user-nickname">
-                            用户名
+                            {{ Auth::user() -> name }}
                         </div>
                     @else
                         <div class="comment-submit-user-not-login">
                             请先<a href="#" data-toggle="modal" data-target="#login-modal">登录</a>!
                         </div>
                     @endif
-
                 </div>
                 <div class="pull-right">
                     <button class="btn btn-primary btn-lg" @if(!Auth::check()) {{ 'disabled' }} @endif>发布评论</button>
                 </div>
             </div>
-
+            <input type="hidden" name="articleId" value="{{ $article -> id }}">
+            <input type="hidden" name="uId" value="{{ Auth::check() ? Auth::user() -> id : ''}}">
             {!! Form::close() !!}
             <div class="comments-info">
                 <div class="pull-left">
@@ -106,9 +106,9 @@
                             <li class="comment-nickname">{{ $comment -> name }}：{{ $comment -> content }}</li>
                             <li>{{ $comment -> createdAt }}
                                 @if(Auth::check())
-                                    <a href="javascript:;" data-article-id="{{ $article -> id }}" data-comment-id="{{ $comment -> id }}" data-base-comment-id="{{ $comment -> id }}" data-user-id="{{ $comment -> uId }}" class="replay-comment">回复</a>
+                                    <a href="javascript:;" data-article-id="{{ $article -> id }}" data-comment-id="{{ $comment -> id }}" data-base-comment-id="{{ $comment -> id }}" data-to-user-id="{{ $comment -> uId }}" data-user-id="{{ Auth::user() -> id }}" class="replay-comment">回复</a>
                                     {{--只有本人或者管理员才会显示删除--}}
-                                    @if(Auth::user() -> id == $comment -> uId || Auth::user() -> id == 1)
+                                    @if(Auth::user() -> id == $comment -> uId || Auth::user() -> roleId == 1)
                                         <a href="javascript:;" data-comment-id="{{ $comment -> id }}">删除</a>
                                     @endif
                                 @endif
@@ -128,9 +128,9 @@
                                         </li>
                                         <li>{{ $replay -> createdAt }}
                                             @if(Auth::check())
-                                                <a href="javascript:;" data-article-id="{{ $article -> id }}" data-base-comment-id="{{ $comment -> id }}" data-comment-id="{{ $replay -> id }}" data-user-id="{{ $replay -> uId }}" class="replay-comment">回复</a>
+                                                <a href="javascript:;" data-article-id="{{ $article -> id }}" data-base-comment-id="{{ $comment -> id }}" data-comment-id="{{ $replay -> id }}" data-to-user-id="{{ $replay -> uId }}" data-user-id="{{ Auth::user() -> id }}" class="replay-comment">回复</a>
                                                 {{--只有本人或者管理员才会显示删除--}}
-                                                @if(Auth::user() -> id == $comment -> uId || Auth::user() -> id == 1)
+                                                @if(Auth::user() -> id == $comment -> uId || Auth::user() -> roleId == 1)
                                                     <a href="javascript:;" data-comment-id="{{ $comment -> id }}">删除</a>
                                                 @endif
                                             @endif

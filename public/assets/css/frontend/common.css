@@ -3,6 +3,13 @@ body {
     background: #f6f6f6;
     font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
 }
+.notify-area {
+    margin-top: 15px;
+}
+
+.notify-area .alert{
+    margin-bottom: 5px !important;
+}
 
 a {
     text-decoration:none !important;
@@ -53,18 +60,57 @@ a:hover {
     display: inline-block !important;
 }
 
-.login-form {
-    text-align: center;
+.redirect-to-backend {
+    margin-left: -5px;
+    display: inline-block !important;
 }
+
 .login-form-div {
+    text-align: center;
     width: 90%;
     margin-right: auto;
     margin-left: auto;
 }
+
 .login-form button {
     margin-top: 15px;
     width: 100%;
 }
+
+.login-message span{
+    margin: 0 !important;
+}
+
+.widget-login {
+    width: 90%;
+    margin: 15px auto 0;
+}
+
+.widgets {
+    margin-top: 10px;
+}
+
+.widgets div {
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.widget-github a {
+    color: #262626;
+}
+
+.widget-weibo a {
+    color: #E40015;
+}
+
+.widget-weixin a {
+    color: #15A900;
+}
+
+.widget-qq a {
+    color: #1386E0;
+}
+
 /**
  * 页面主体及footer
  */

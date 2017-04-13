@@ -39,5 +39,11 @@ return [
         'client_id' => '2785719256',
         'client_secret' => '29784adcb76395378ff8670c165a2688',
         'redirect' => 'http://www.fushupeng.com'
+    ],
+
+    'github' => [
+        'client_id' => 'ac2fd40636dbb5f53d0e',
+        'client_secret' => 'a60bcedd5f3576f000338f8e750a26c9a8d6a403',
+        'redirect' => 'http://www.fushupeng.dev/oauth/github/callback'
     ]
 ];

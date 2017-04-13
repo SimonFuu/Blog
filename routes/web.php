@@ -11,19 +11,19 @@
 |
 */
 
-Route::post('login', 'LoginController@commonLogin');
-Route::group(['prefix' => '/backend', 'namespace' => 'Backend'], function () {
+Route::post('/login', 'LoginController@commonLogin');
+Route::get('/oauth/{service}', 'LoginController@redirectToProvider');
+Route::get('/oauth/{service}/callback', 'LoginController@handleProviderCallback');
+
+Route::get('logout', 'LoginController@commonLogout');
+Route::group(['prefix' => '/backend', 'middleware' => 'backend', 'namespace' => 'Backend'], function () {
     Route::get('/', 'IndexController@index');
 });
-
 Route::group(['prefix' => '/', 'namespace' => 'Frontend'], function () {
     Route::get('/', 'IndexController@index');
     Route::get('/article/{id}', 'ArticlesController@getArticle');
     Route::get('/catalog/{id}', 'CatalogsController@getCatalogArticles');
     Route::get('/tag/{id}', 'TagsController@getTagArticles');
-    Route::get('/oauth/{service}', 'AuthController@redirectToProvider');
-    Route::get('/oauth/{service}/callback', 'AuthController@handleProviderCallback');
-    Route::group(['middleware' => 'Auth'], function () {
-
-    });
+    Route::post('/article/comment', 'CommentController@store');
 });
+

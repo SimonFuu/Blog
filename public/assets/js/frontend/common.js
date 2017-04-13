@@ -58,19 +58,21 @@ var replayComment = function () {
         $('.child-comment-submit-module').remove();
         var articleId = $(this).data('article-id');
         var commentId = $(this).data('comment-id');
-        var userId = $(this).data('user-id');
+        var uId = $(this).data('user-id');
+        var toId = $(this).data('to-user-id');
         var baseCommentId = $(this).data('base-comment-id');
         var token = $('input[name=_token]').val();
         // 构建评论框代码
         var html =  '<li><div class="child-comment-submit-module">';
         html += '<form method="POST" action="/article/comment" accept-charset="UTF-8" class="form-horizontal" role="form">';
         html += '<input type="hidden" name="_token" value="' + token + '">';
+        html += '<input type="hidden" name="uId" value="' + uId + '">';
         html += '<input type="hidden" name="articleId" value="' + articleId + '">';
-        html += '<input type="hidden" name="commentId" value="' + commentId + '">';
-        html += '<input type="hidden" name="userId" value="' + userId + '">';
+        html += '<input type="hidden" name="parentCommentId" value="' + commentId + '">';
+        html += '<input type="hidden" name="commentToUid" value="' + toId + '">';
         html += '<input type="hidden" name="baseCommentId" value="' + baseCommentId + '">';
         html += '<div class="form-group"><div class="comment-submit">';
-        html += '<textarea class="form-control" name="comment" required cols="50" rows="10"></textarea>';
+        html += '<textarea class="form-control" name="content" required cols="50" rows="10"></textarea>';
         html += '</div></div><div class="form-group comment-submit-button">';
         html += '<div class="pull-right"><button type="button" class="btn btn-default" onclick="closeReplayTextArea()">关闭</button>';
         html += '<button type="submit" class="btn btn-primary">发布评论</button></div></div></form></div></li>';
@@ -81,6 +83,20 @@ var replayComment = function () {
 
 var closeReplayTextArea = function () {
     $('.child-comment-submit-module').remove();
+};
+
+var connectToOAuth = function (e) {
+    var href = e.attr('href');
+    var iHeight = 600;
+    var iWidth = 550;
+    var iTop = (window.screen.height -30 - iHeight)/2;
+    var iLeft = (window.screen.width - 10 - iWidth)/2;
+    var params = 'toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, ';
+    params += 'copyhistory=yes, width=' + iWidth + ', height=' + iHeight + ', top=' + iTop + ', left=' + iLeft + '';
+    window.open(href, '_blank', params);
+    window.addEventListener("message", function() {
+        location.reload();
+    });
 };
 
 $(function () {

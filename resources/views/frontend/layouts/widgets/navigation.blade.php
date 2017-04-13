@@ -33,8 +33,12 @@
                     @if(Auth() -> check())
                         {{--登录成功后，显示登录用户昵称及头像--}}
                         <li class="front-login-user-info">
-                            <img class="front-login-user-avatar" src="http://qzapp.qlogo.cn/qzapp/101206152/CD318B79DE9134A62498FFB1068975F1/100" alt="">
-                            <span>付淑鹏</span>
+                            <img class="front-login-user-avatar" src="{{ Auth::user() -> avatar }}" alt="">
+                            <span>{{ Auth::user() -> name }}</span>
+                            &nbsp;
+                            @if(Auth::user() -> roleId == 1)
+                                <a class="redirect-to-backend" href="/backend"><i class="fa fa-tachometer" aria-hidden="true"></i> 进入后台</a>
+                            @endif
                             <a class="front-login-user-logout" href="/logout"><i class="fa fa-power-off" aria-hidden="true"></i> 退出</a>
                         </li>
                     @else
