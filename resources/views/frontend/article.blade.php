@@ -13,7 +13,6 @@
                     <i class="fa fa-calculator" aria-hidden="true"></i>
                     &nbsp;
                     {{ $article -> publishedAt }}
-
                 </div>
                 <div class="col-md-2">
                     <i class="fa fa-list-alt" aria-hidden="true"></i>
@@ -41,41 +40,49 @@
     </div>
     <div class="module comments-module">
         <div class="comment-submit-module">
-        {!! Form::open(['url' => '/article/comment', 'method' => 'post', 'class' => 'form-horizontal', 'role' => 'form']) !!}
-        <!--- Comment Field --->
-            <div class="form-group">
-                <div class="comment-submit">
-                    @if(Auth::check())
-                        {!! Form::textarea('content', null, ['class' => 'form-control', 'required']) !!}
-                    @else
-                        {!! Form::textarea('content', '请先登录！', ['class' => 'form-control comment-not-login', 'required', 'disabled']) !!}
-                    @endif
+            {!! Form::open(['url' => '/article/comment', 'method' => 'post', 'class' => 'form-horizontal', 'role' => 'form']) !!}
+                {{--<div class="col-md-4">--}}
+                    {{--<!--- Test Field --->--}}
+                    {{--<div class="form-group">--}}
+                        {{--{!! Form::text('test', null, ['class' => 'form-control']) !!}--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="col-md-9">--}}
+                    {{--{!! Form::textarea('content', '请先登录！', ['class' => 'form-control comment-not-login', 'required', 'disabled']) !!}--}}
+    {{----}}
+                {{--</div>--}}
+                <!--- Comment Field --->
+                <div class="form-group">
+                    <div class="comment-submit">
+                        @if(Auth::check())
+                            {!! Form::textarea('content', null, ['class' => 'form-control', 'required']) !!}
+                        @else
+                            {!! Form::textarea('content', '请先登录！', ['class' => 'form-control comment-not-login', 'required', 'disabled']) !!}
+                        @endif
+                    </div>
                 </div>
-            </div>
-            <div class="form-group comment-submit-button">
-                <div class="comment-submit-user-info pull-left">
-                    @if(Auth::check())
-                        <img class="comment-submit-user-avatar" src="{{ Auth::user() -> avatar }}" alt="">
-                        <div class="comment-submit-user-nickname">
-                            {{ Auth::user() -> name }}
-                        </div>
-                    @else
-                        <div class="comment-submit-user-not-login">
-                            请先<a href="#" data-toggle="modal" data-target="#login-modal">登录</a>!
-                        </div>
-                    @endif
+                <div class="form-group comment-submit-button">
+                    <div class="comment-submit-user-info pull-left">
+                        @if(Auth::check())
+                            <img class="comment-submit-user-avatar" src="{{ Auth::user() -> avatar }}" alt="">
+                            <div class="comment-submit-user-nickname">
+                                {{ Auth::user() -> name }}
+                            </div>
+                        @else
+                            <div class="comment-submit-user-not-login">
+                                请先<a href="#" data-toggle="modal" data-target="#login-modal">登录</a>!
+                            </div>
+                        @endif
+                    </div>
+                    <div class="pull-right">
+                        <button class="btn btn-primary btn-lg" @if(!Auth::check()) {{ 'disabled' }} @endif>发布评论</button>
+                    </div>
                 </div>
-                <div class="pull-right">
-                    <button class="btn btn-primary btn-lg" @if(!Auth::check()) {{ 'disabled' }} @endif>发布评论</button>
-                </div>
-            </div>
-            <input type="hidden" name="articleId" value="{{ $article -> id }}">
-            <input type="hidden" name="uId" value="{{ Auth::check() ? Auth::user() -> id : ''}}">
+                <input type="hidden" name="articleId" value="{{ $article -> id }}">
+                <input type="hidden" name="uId" value="{{ Auth::check() ? Auth::user() -> id : ''}}">
             {!! Form::close() !!}
             <div class="comments-info">
-                <div class="pull-left">
-                    最新评论
-                </div>
+                <div class="pull-left">最新评论</div>
                 <div class="pull-right">共计{{ count($comments) }}条评论</div>
             </div>
         </div>

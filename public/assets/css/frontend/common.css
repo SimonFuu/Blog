@@ -520,14 +520,14 @@ a:hover {
  */
 .user-bind-page-header {
     text-align: center;
-    height:100px;
+    height:80px;
 }
 
 .user-bind-page-body {
-    padding: 50px 100px;
+    padding: 30px 40px;
     margin-left: auto;
     margin-right: auto;
-    width: 70%;
+    width: 80%;
 }
 
 .must-be-input {
@@ -537,4 +537,12 @@ a:hover {
 
 .user-bind-page-submit {
     margin-top: 15px;
+}
+
+.response-close-button {
+    text-align:  center;
+    margin-top: 30px;
+}
+.response-close-button button {
+    width: 30%;
 }
