@@ -51,7 +51,7 @@ class CommentController extends Controller
             return redirect() -> back() -> with('error', '您要删除的评论不存在');
         } else {
             if (Auth::user() -> roleId <= 1 || $comment -> uId == Auth::user() -> id) {
-                $path = $comment -> path . '/' . $cId;
+                $path = $comment -> path == '0' ? '/' . $cId : $comment -> path . '/' . $cId;
                 DB::table('comments')
                     -> where('id', $cId)
                     -> orWhere('path', 'like', $path . '%')
