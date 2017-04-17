@@ -79,44 +79,26 @@
                     </div>
                 </div>
                 <input type="hidden" name="articleId" value="{{ $article -> id }}">
-                <input type="hidden" name="uId" value="{{ Auth::check() ? Auth::user() -> id : ''}}">
             {!! Form::close() !!}
             <div class="comments-info">
                 <div class="pull-left">最新评论</div>
-                <div class="pull-right">共计{{ count($comments) }}条评论</div>
+                <div class="pull-right">共计{{ $commentCount }}条评论</div>
             </div>
         </div>
         {{---------------------------------评论列表---------------------------------------}}
         <div class="comments-list">
             @if(count($comments) > 0)
-                @php
-                    foreach ($comments as $comment) {
-                        if ($comment -> baseCommentId == 0) {
-                            $parentComments[] = $comment;
-                        } else {
-                            $replays[$comment -> baseCommentId][] = $comment;
-                        }
-                    }
-                    foreach ($parentComments as $comment) {
-                        if (isset($replays[$comment -> id])) {
-                            $comment -> replays = $replays[$comment -> id];
-                        } else {
-                            $comment -> replays = null;
-                        }
-                    }
-
-                @endphp
-                @foreach($parentComments as $comment)
+                @foreach($comments as $comment)
                     <div class="user-comment">
                         <img src="{{ $comment -> avatar }}" alt="头像" class="article-comment-avatar">
                         <ul>
                             <li class="comment-nickname">{{ $comment -> name }}：{{ $comment -> content }}</li>
                             <li>{{ $comment -> createdAt }}
                                 @if(Auth::check())
-                                    <a href="javascript:;" data-article-id="{{ $article -> id }}" data-comment-id="{{ $comment -> id }}" data-base-comment-id="{{ $comment -> id }}" data-to-user-id="{{ $comment -> uId }}" data-user-id="{{ Auth::user() -> id }}" class="replay-comment">回复</a>
+                                    <a href="javascript:;" data-article-id="{{ $article -> id }}" data-comment-id="{{ $comment -> id }}" class="replay-comment">回复</a>
                                     {{--只有本人或者管理员才会显示删除--}}
                                     @if(Auth::user() -> id == $comment -> uId || Auth::user() -> roleId == 1)
-                                        <a href="javascript:;" data-comment-id="{{ $comment -> id }}">删除</a>
+                                        <a href="/article/comment/delete/{{ $comment -> id }}">删除</a>
                                     @endif
                                 @endif
                             </li>
@@ -135,10 +117,10 @@
                                         </li>
                                         <li>{{ $replay -> createdAt }}
                                             @if(Auth::check())
-                                                <a href="javascript:;" data-article-id="{{ $article -> id }}" data-base-comment-id="{{ $comment -> id }}" data-comment-id="{{ $replay -> id }}" data-to-user-id="{{ $replay -> uId }}" data-user-id="{{ Auth::user() -> id }}" class="replay-comment">回复</a>
+                                                <a href="javascript:;" data-article-id="{{ $article -> id }}" data-comment-id="{{ $replay -> id }}" class="replay-comment">回复</a>
                                                 {{--只有本人或者管理员才会显示删除--}}
                                                 @if(Auth::user() -> id == $comment -> uId || Auth::user() -> roleId == 1)
-                                                    <a href="javascript:;" data-comment-id="{{ $comment -> id }}">删除</a>
+                                                    <a href="/article/comment/delete/{{ $replay -> id }}">删除</a>
                                                 @endif
                                             @endif
                                         </li>

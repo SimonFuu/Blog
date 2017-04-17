@@ -58,19 +58,13 @@ var replayComment = function () {
         $('.child-comment-submit-module').remove();
         var articleId = $(this).data('article-id');
         var commentId = $(this).data('comment-id');
-        var uId = $(this).data('user-id');
-        var toId = $(this).data('to-user-id');
-        var baseCommentId = $(this).data('base-comment-id');
         var token = $('input[name=_token]').val();
         // 构建评论框代码
         var html =  '<li><div class="child-comment-submit-module">';
         html += '<form method="POST" action="/article/comment" accept-charset="UTF-8" class="form-horizontal" role="form">';
         html += '<input type="hidden" name="_token" value="' + token + '">';
-        html += '<input type="hidden" name="uId" value="' + uId + '">';
-        html += '<input type="hidden" name="articleId" value="' + articleId + '">';
         html += '<input type="hidden" name="parentCommentId" value="' + commentId + '">';
-        html += '<input type="hidden" name="commentToUid" value="' + toId + '">';
-        html += '<input type="hidden" name="baseCommentId" value="' + baseCommentId + '">';
+        html += '<input type="hidden" name="articleId" value="' + articleId + '">';
         html += '<div class="form-group"><div class="comment-submit">';
         html += '<textarea class="form-control" name="content" required cols="50" rows="10"></textarea>';
         html += '</div></div><div class="form-group comment-submit-button">';

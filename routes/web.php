@@ -28,6 +28,7 @@ Route::group(['prefix' => '/', 'namespace' => 'Frontend'], function () {
     Route::get('/catalog/{id}', 'CatalogsController@getCatalogArticles');
     Route::get('/tag/{id}', 'TagsController@getTagArticles');
     Route::post('/article/comment', 'CommentController@store');
+    Route::get('/article/comment/delete/{id}', 'CommentController@deleteComment');
     Route::get('/mail', 'IndexController@mail');
 });
 
