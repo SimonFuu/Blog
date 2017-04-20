@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Providers;
+namespace App\Providers\Frontend;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\View\View;
 
 class SidebarServiceProvider extends ServiceProvider
 {

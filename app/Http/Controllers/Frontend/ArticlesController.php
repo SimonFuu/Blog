@@ -36,12 +36,17 @@ class ArticlesController extends Controller
             -> get();
         $counts = count($comments);
         $parentComments = [];
+        $replays = [];
         if ($counts > 0) {
             foreach ($comments as $comment) {
                 if ($comment -> baseCommentId == 0) {
                     $parentComments[] = $comment;
                 } else {
-                    $replays[$comment -> baseCommentId][] = $comment;
+                    if (isset($replays[$comment -> baseCommentId])) {
+                        array_unshift($replays[$comment -> baseCommentId], $comment);
+                    } else {
+                        $replays[$comment -> baseCommentId][] = $comment;
+                    }
                 }
             }
             foreach ($parentComments as $comment) {
@@ -54,7 +59,8 @@ class ArticlesController extends Controller
         }
         $article -> nextArticle = $this -> getNextArticle($article -> publishedAt);
         $article -> prevArticle = $this -> getPrevArticle($article -> publishedAt);
-        return view('frontend.article', ['article' => $article, 'comments' => $parentComments, 'commentCount' => $counts]);
+        return view('frontend.article',
+            ['article' => $article, 'comments' => $parentComments, 'commentCount' => $counts]);
     }
 
     private function getNextArticle($date = '1990-01-01 00:00:00')

@@ -1,4 +1,4 @@
-@extends('layouts.layouts')
+@extends('frontend.layouts.layouts')
 @section('body')
     <div class="container">
         <div class="user-bind-page-header">

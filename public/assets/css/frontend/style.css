@@ -41,10 +41,11 @@ a:hover {
 }
 
 .front-login-user-avatar {
-    margin-top: 10px;
     width: 30px;
     height: 30px;
     margin-bottom: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 .front-login-user-info {
     height: 50px !important;
@@ -55,12 +56,7 @@ a:hover {
     display: inline-block;
     margin-left: 10px;
 }
-.front-login-user-logout {
-    margin-left: -5px;
-    display: inline-block !important;
-}
-
-.redirect-to-backend {
+.front-login-user-info a {
     margin-left: -5px;
     display: inline-block !important;
 }
@@ -79,6 +75,12 @@ a:hover {
 
 .login-message span{
     margin: 0 !important;
+}
+
+.oauth-login-notification {
+    text-align: center;
+    margin-top: 100px;
+    font-size: 20px;
 }
 
 .widget-login {

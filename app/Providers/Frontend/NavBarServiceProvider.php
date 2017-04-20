@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace App\Providers\Frontend;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

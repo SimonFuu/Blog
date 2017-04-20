@@ -10,4 +10,3 @@
     </p>
     <p>Some Rights Reserved: <a href="http://www.fushupeng.com">www.fushupeng.com</a></p>
 </div>
-<script src="/assets/js/frontend/common.js?{{ time() }}"></script>

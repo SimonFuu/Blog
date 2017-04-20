@@ -1,4 +1,4 @@
-@extends('layouts.layouts')
+@extends('frontend.layouts.layouts')
 @section('body')
     @include('frontend.layouts.widgets.navigation')
     <div class="body">
