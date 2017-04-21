@@ -178,10 +178,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\Frontend\SidebarServiceProvider::class,
-        App\Providers\Frontend\NavBarServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         SocialiteProviders\Manager\ServiceProvider::class,
+        App\Providers\LayoutsBarsServiceProvider::class,
     ],
 
     /*

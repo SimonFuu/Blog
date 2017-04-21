@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers\Frontend;
+namespace App\Providers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,10 +16,13 @@ class NavBarServiceProvider extends ServiceProvider
      */
     public function boot(Request $request)
     {
-        view() -> composer('frontend.layouts.widgets.navigation', function($view) use ($request) {
-            $view -> with('catalogs', $this -> getCatalogs());
-            $view -> with('uri', $request -> getPathInfo());
-        });
+        $path = $request -> getPathInfo();
+        if(strpos($path, '/backend') === false) {
+            view() -> composer('frontend.layouts.widgets.navigation', function($view) use ($request) {
+                $view -> with('catalogs', $this -> getFrontendCatalog());
+                $view -> with('uri', $request -> getPathInfo());
+            });
+        }
     }
 
     /**
@@ -32,7 +35,7 @@ class NavBarServiceProvider extends ServiceProvider
         //
     }
 
-    private function getCatalogs()
+    private function getFrontendCatalog()
     {
         $catalogs = Redis::get('CATALOGS');
         if (!$catalogs) {

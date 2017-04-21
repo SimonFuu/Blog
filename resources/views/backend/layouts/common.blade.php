@@ -13,23 +13,7 @@
             </div>
 
             <div class="collapse navbar-collapse" id="navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a href="">菜单1</a>
-                    </li>
-                    <li>
-                        <a href="">菜单1</a>
-                    </li>
-                    <li>
-                        <a href="">菜单1</a>
-                    </li>
-                    <li>
-                        <a href="">菜单1</a>
-                    </li>
-                    <li>
-                        <a href="">菜单1</a>
-                    </li>
-                </ul>
+                @include('backend.layouts.widgets.header')
                 <ul class="nav navbar-nav navbar-right">
                     @if(Auth() -> check())
                         {{--登录成功后，显示登录用户昵称及头像--}}
@@ -46,7 +30,7 @@
     </nav>
     <div class="main">
         <div class="backend-sidebars">
-            dsdsadas
+            @include('backend.layouts.widgets.sidebar')
         </div>
         <div class="backend-content">
             @yield('content')

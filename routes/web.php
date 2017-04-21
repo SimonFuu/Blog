@@ -21,6 +21,11 @@ Route::get('/logout', 'LoginController@logout');
 
 Route::group(['prefix' => '/backend', 'middleware' => 'backend', 'namespace' => 'Backend'], function () {
     Route::get('/', 'IndexController@index');
+    Route::get('/articles', 'ArticlesController@articlesList');
+    Route::get('/articles/edit/{id}', function () {
+        return view('backend.index');
+    });
+    Route::get('/articles/add', 'ArticlesController@addForm');
 });
 Route::group(['prefix' => '/', 'namespace' => 'Frontend'], function () {
     Route::get('/', 'IndexController@index');

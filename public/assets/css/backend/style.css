@@ -75,19 +75,11 @@ a:hover {
     padding: 15px 10px !important;
 }
 
-/*. {*/
-    /*margin-left: -5px;*/
-    /*display: inline-block !important;*/
-/*}*/
-
-/*. {*/
-    /*margin-left: -5px;*/
-    /*display: inline-block !important;*/
-/*}*/
 /**
  * 后台左侧菜单
  */
 .backend-sidebars {
+    overflow-y:auto;
     background: #f6f6f6;
     height: 100%;
     width: 170px;
@@ -97,7 +89,55 @@ a:hover {
 
 .backend-content {
     width: 100%;
-    padding-left: 175px;
+    padding-left: 220px;
     background: white;
     display: inline-block;
+    padding-right: 45px;
+    word-break:break-all;
+}
+.backend-sidebars ul {
+    padding-left: 0;
+}
+
+.backend-sidebars ul li {
+    list-style: none;
+    line-height: 35px;
+    font-size: 15px;
+    height: 35px;
+    padding-left: 15px;
+    border-top: 2px solid #9d9d9d;
+    font-weight: bold;
+}
+
+.backend-sidebars ul li:first-child {
+    border-top: 0 !important;
+}
+
+.backend-sidebars ul li:hover {
+    background: #3195FF !important;
+}
+
+.backend-sidebars ul li a{
+    color: #333;
+}
+
+.submenus {
+    border-top: 1px solid #9d9d9d !important;
+    padding-left: 30px !important;
+    background: white;
+    font-weight: normal !important;
+}
+
+.submenu-active {
+    border-left: 5px solid #3195FF;
+    padding-left: 25px !important;
+}
+/**
+ * 后台首页
+ */
+.welcome-page {
+    margin-top: 50px;
+    border-radius: 10px;
+    padding-left: 100px;
+    padding-right: 100px;
 }
