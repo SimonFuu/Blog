@@ -20,7 +20,7 @@
                         <li class="back-login-user-info">
                             <a href=""><i class="fa fa-bell-o" aria-hidden="true"></i></a>
                             <a class="back-edit-user-info" href="/backend/user/{{ Auth::user() -> id }}"><i class="fa fa-user" aria-hidden="true"></i> {{ Auth::user() -> name }}</a>
-                            <a class="redirect-to-frontend" href="/"><i class="fa fa-sitemap" aria-hidden="true"></i> 进入前台</a>
+                            <a class="redirect-to-frontend" href="/" target="_blank"><i class="fa fa-home" aria-hidden="true"></i> 前台首页</a>
                             <a class="back-login-user-logout" href="/logout"><i class="fa fa-power-off" aria-hidden="true"></i> 退出</a>
                         </li>
                     @endif
@@ -33,7 +33,10 @@
             @include('backend.layouts.widgets.sidebar')
         </div>
         <div class="backend-content">
-            @yield('content')
+            @yield('breadcrumb')
+            <div class="content-list">
+                @yield('content')
+            </div>
         </div>
     </div>
 @endsection

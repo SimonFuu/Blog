@@ -1,4 +1,9 @@
 @extends('backend.layouts.common')
+@section('breadcrumb')
+    <ol class="breadcrumb">
+        <li class="active">首页</li>
+    </ol>
+@endsection
 @section('content')
     <div class="jumbotron welcome-page">
         <h2>欢迎使用博客后台管理系统</h2>
