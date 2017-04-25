@@ -39,7 +39,6 @@
                             <div class="cornerBottom div-2"></div>
                             <div class="cornerLeft div-1"></div>
                         </div>
-
                     </div>
                     <div class="col-md-8">
                         <div class="index-articles-content">

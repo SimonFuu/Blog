@@ -35,6 +35,24 @@
         <div class="backend-content">
             @yield('breadcrumb')
             <div class="content-list">
+                <div class="notify-area">
+                    @if (session('success'))
+                        <div class="alert alert-success alert-dismissable fade in">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            {!! session('success') !!}
+                        </div>
+                    @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger alert-dismissable fade in">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            {!! session('error') !!}
+                        </div>
+                    @endif
+                </div>
                 @yield('content')
             </div>
         </div>

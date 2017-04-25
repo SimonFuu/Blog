@@ -19,18 +19,6 @@ a:hover {
     color: blue;
 }
 
-@media (min-width: 992px) {
-    .content-list {
-        width: 970px;
-    }
-}
-
-@media (min-width: 768px)  {
-    .content-list {
-        width: 970px;
-    }
-}
-
 .content-list {
     padding-right: 10px;
     padding-left: 10px;
@@ -38,8 +26,30 @@ a:hover {
     margin-left: auto;
 }
 
+@media (min-width: 838px)  {
+    .content-list {
+        width: 750px;
+    }
+}
+
+@media (min-width: 1162px) {
+    .content-list {
+        width: 970px;
+    }
+}
+
+@media (min-width: 1370px) {
+    .content-list {
+        width: 1170px;
+    }
+}
+
 th, td {
     text-align: center !important;
+}
+
+.notify-area {
+    margin-bottom: 20px;
 }
 /**
  * 头部导航栏
@@ -115,7 +125,6 @@ th, td {
     padding-left: 170px;
     background: white;
     display: inline-block;
-    /*padding-right: 45px;*/
     word-break:break-all;
 }
 
@@ -176,4 +185,19 @@ th, td {
 .edit-action a {
     display: inline-block;
     margin: 0 2px;
+}
+
+.stick-article {
+    font-weight: bold;
+}
+
+.stickArticleWeightForm {
+    padding: 20px 40px;
+}
+
+.stickArticleErrorMessage {
+    margin-right: -15px;
+    margin-left: -15px;
+    text-align: center;
+    margin-top: 20px;
 }

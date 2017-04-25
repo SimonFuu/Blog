@@ -22,10 +22,12 @@ Route::get('/logout', 'LoginController@logout');
 Route::group(['prefix' => '/backend', 'middleware' => 'backend', 'namespace' => 'Backend'], function () {
     Route::get('/', 'IndexController@index');
     Route::get('/articles', 'ArticlesController@articlesList');
-    Route::get('/articles/edit/{id}', function () {
-        return view('backend.index');
-    });
-    Route::get('/articles/add', 'ArticlesController@addForm');
+    Route::get('/articles/un-stick/{id}', 'ArticlesController@unStickArticles');
+    Route::post('/articles/stick', 'ArticlesController@stickArticles');
+    Route::get('/articles/delete/{id}', 'ArticlesController@moveToTrash');
+
+    Route::get('/articles/edit/{id}', 'ArticlesController@articleForm');
+    Route::get('/articles/add', 'ArticlesController@articleForm');
 });
 Route::group(['prefix' => '/', 'namespace' => 'Frontend'], function () {
     Route::get('/', 'IndexController@index');

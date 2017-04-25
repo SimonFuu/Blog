@@ -24,7 +24,7 @@ var activeSideBar = function () {
     });
 };
 
-var datePicker = function () {
+var searchFormDatePicker = function () {
     $('#article-publish-start').datepicker({
         language: 'zh-CN',
         todayHighlight: true,
@@ -43,8 +43,34 @@ var datePicker = function () {
     });
 };
 
+var articleFormDateTimePicker = function () {
+    $('#articlePublishedAt').datetimepicker({
+        language: 'zh-CN',
+        todayHighlight: true,
+        weekStart: 0,
+        autoclose: true,
+        todayBtn: true,
+        format: 'yyyy-mm-dd hh:ii:00'
+    });
+};
+var stickArticles = function () {
+    $('.stick-article-button').on('click', function () {
+        var articleId = $(this).data('article-id');
+        var articleTitle = $(this).data('article-title');
+        var articleWeight = $(this).data('article-weight');
+        $('.toStickArticleId').val(articleId);
+        $('.toStickArticleTitle').val(articleTitle);
+        $('.toStickArticleWeight').val(articleWeight);
+    });
+    $('#stickArticleWeight').on('hidden.bs.modal', function () {
+        $('.toStickArticleId').val('');
+        $('.toStickArticleTitle').val('');
+        $('.toStickArticleWeight').val('');
+    })
+};
+
 $(function () {
     activeSideBar();
     resizeSideBar();
-    datePicker();
+    stickArticles();
 });

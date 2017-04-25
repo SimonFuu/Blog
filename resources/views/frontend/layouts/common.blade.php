@@ -69,15 +69,15 @@
                                     </div>
                                     @if ($errors->has('username'))
                                         <div class="login-message">
-                                        <span class="help-block alert-danger">
-                                            <strong>{{ $errors->first('username') }}</strong>
-                                        </span>
+                                            <span class="help-block alert-danger">
+                                                <strong>{{ $errors->first('username') }}</strong>
+                                            </span>
                                         </div>
                                     @elseif($errors->has('password'))
                                         <div class="login-message">
-                                        <span class="help-block alert-danger">
-                                            <strong>{{ $errors->first('password') }}</strong>
-                                        </span>
+                                            <span class="help-block alert-danger">
+                                                <strong>{{ $errors->first('password') }}</strong>
+                                            </span>
                                         </div>
                                     @endif
                                     <div class="login-submit">

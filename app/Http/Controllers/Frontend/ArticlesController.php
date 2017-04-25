@@ -18,6 +18,9 @@ class ArticlesController extends Controller
             -> leftJoin('catalogs', 'catalogs.id', '=', 'articles.catalogId')
             -> leftJoin('tags', 'tags.id', '=', 'articles.tagId')
             -> where('articles.isDelete', 0)
+            -> where('tags.isDelete', 0)
+            -> where('catalogs.isDelete', 0)
+            -> where('articles.inTrash', 0)
             -> where('articles.id', $id)
             -> where('articles.publishedAt', '<=', date('Y-m-d H:i:s'))
             -> first();
