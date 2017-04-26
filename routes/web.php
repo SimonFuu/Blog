@@ -28,6 +28,7 @@ Route::group(['prefix' => '/backend', 'middleware' => 'backend', 'namespace' => 
 
     Route::get('/articles/edit/{id}', 'ArticlesController@articleForm');
     Route::get('/articles/add', 'ArticlesController@articleForm');
+    Route::post('/articles/store', 'ArticlesController@storeArticle');
 });
 Route::group(['prefix' => '/', 'namespace' => 'Frontend'], function () {
     Route::get('/', 'IndexController@index');

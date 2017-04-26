@@ -100,12 +100,56 @@ class ArticlesController extends Controller
 
     public function articleForm($id = 0)
     {
+        $tags = $this -> getTags();
+        $catalogs = $this -> getCatalogs();
         if ($id !== 0) {
-            $article = [];
+            $article = DB::table('articles')
+                -> select('id', 'title', 'catalogId', 'tagId', 'publishedAt', 'abstract as abstractContent', 'content')
+                -> where('isDelete', 0)
+                -> where('id', $id)
+                -> first();
+            if (is_null($article)) {
+                abort(404);
+            }
         } else {
             $article = null;
         }
-        return view('backend.contents.articleForm', ['type' => $id, 'article' => $article]);
+        return view('backend.contents.articleForm',
+            ['type' => $id, 'article' => $article, 'tags' => $tags, 'catalogs' => $catalogs]);
+    }
+
+    public function storeArticle(Request $request)
+    {
+        $roles = [
+            'title' => 'required|min:5|max:255',
+            'catalogId' => 'required|exists:catalogs,id,isDelete,0',
+            'tagId' => 'required|exists:tags,id,isDelete,0',
+            'publishedAt' => 'required|date',
+            'abstract' => 'sometimes|max:255',
+            'content' => 'required|min:50|max:10000',
+            'id' => 'sometimes|exists:articles,id,inTrash,0'
+        ];
+        $messages = [
+            'title.required' => '请输入文章标题！',
+            'title.min' => '文章标题长度为5-255！',
+            'title.max' => '文章标题长度为5-255！',
+            'catalogId.required' => '请选择文章目录！',
+            'catalogId.exists' => '文章目录不正确！',
+            'tagId.required' => '请选择文章标签！',
+            'tagId.exists' => '文章标签不正确！',
+            'publishedAt.required' => '请选择文章发布时间！',
+            'publishedAt.data' => '文章发布时间格式错误！',
+            'abstract.sometimes' => '请输入摘要内容',
+            'abstract.max' => '文章摘要长度不得大于255！',
+            'content.required' => '请输入文章内容！',
+            'content.max' => '文章内容长度最低为10000！',
+            'content.min' => '文章内容长度最低为50！',
+            'id.sometimes' => '文章ID不存在！',
+            'id.exists' => '文章不存在或已删除！',
+        ];
+        $this -> validate($request, $roles, $messages);
+        $data = $request -> except('_token');
+        dd($data);
     }
 
     private function getTags()

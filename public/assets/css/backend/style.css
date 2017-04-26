@@ -26,23 +26,26 @@ a:hover {
     margin-left: auto;
 }
 
-@media (min-width: 838px)  {
-    .content-list {
-        width: 750px;
-    }
+.content-list {
+    width: 95%;
 }
+/*@media (min-width: 838px)  {*/
+    /*.content-list {*/
+        /*width: 750px;*/
+    /*}*/
+/*}*/
 
-@media (min-width: 1162px) {
-    .content-list {
-        width: 970px;
-    }
-}
+/*@media (min-width: 1162px) {*/
+    /*.content-list {*/
+        /*width: 970px;*/
+    /*}*/
+/*}*/
 
-@media (min-width: 1370px) {
-    .content-list {
-        width: 1170px;
-    }
-}
+/*@media (min-width: 1370px) {*/
+    /*.content-list {*/
+        /*width: 1170px;*/
+    /*}*/
+/*}*/
 
 th, td {
     text-align: center !important;
@@ -200,4 +203,21 @@ th, td {
     margin-left: -15px;
     text-align: center;
     margin-top: 20px;
+}
+
+/**
+ * 发布／编辑文章
+ */
+.submit-buttons .btn {
+    width: 100px;
+    margin-right: 30px;
+    margin-left: 30px;
+}
+
+.submit-buttons {
+    margin-bottom: 50px;
+}
+
+.button-right-errors-bag {
+    margin-left: 25px;
 }

@@ -69,7 +69,7 @@ class LoginController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect() -> back();
+        return redirect('/') -> with('success', '您已退出登录！');
     }
 
     public function redirectToProvider(Request $request, $service)

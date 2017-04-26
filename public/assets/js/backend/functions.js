@@ -3,12 +3,12 @@
  */
 var resizeSideBar = function () {
     var navHeight = $('.navbar-header').height() + 2;
-    $('.backend-content').height($(window).height() - navHeight);
-    $('.backend-sidebars').height($(window).height() - navHeight);
+    $('.backend-content').height($(document).height() - navHeight);
+    $('.backend-sidebars').height($(document).height() - navHeight);
     $(window).resize(function () {
         var newNavHeight = $('.navbar-header').height() + 2;
-        $('.backend-content').height($(window).height() - newNavHeight);
-        $('.backend-sidebars').height($(window).height() - navHeight);
+        $('.backend-content').height($(document).height() - newNavHeight);
+        $('.backend-sidebars').height($(document).height() - newNavHeight);
     });
 };
 
