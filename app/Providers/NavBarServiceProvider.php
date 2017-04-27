@@ -17,7 +17,7 @@ class NavBarServiceProvider extends ServiceProvider
     public function boot(Request $request)
     {
         $path = $request -> getPathInfo();
-        if(strpos($path, '/backend') === false) {
+        if(strpos($path, '/admin') === false) {
             view() -> composer('frontend.layouts.widgets.navigation', function($view) use ($request) {
                 $view -> with('catalogs', $this -> getFrontendCatalog());
                 $view -> with('uri', $request -> getPathInfo());

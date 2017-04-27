@@ -16,7 +16,7 @@ class LayoutsBarsServiceProvider extends ServiceProvider
      */
     public function boot(Request $request)
     {
-        if(strpos($request -> getPathInfo(), '/backend') === false) {
+        if(strpos($request -> getPathInfo(), '/admin') === false) {
             view() -> composer('frontend.layouts.widgets.sidebar', function ($view) {
                 $view -> with('tags', $this -> getTags());
                 $view -> with('articles', $this -> getRecommendArticle());
@@ -47,12 +47,12 @@ class LayoutsBarsServiceProvider extends ServiceProvider
                 $menu = 'index';
                 $requestPath = '/';
             }
-            view() -> composer('backend.layouts.widgets.header', function ($view) use ($menu) {
-                $view -> with('catalogs', $this -> getBackendMenus('index'));
+            view() -> composer('admin.layouts.widgets.header', function ($view) use ($menu) {
+                $view -> with('catalogs', $this -> getAdminMenus('index'));
                 $view -> with('uri', '/' . ($menu == 'index' ? '' : $menu));
             });
-            view() -> composer('backend.layouts.widgets.sidebar', function ($view) use ($menu, $requestPath){
-                $view -> with('menus', $this -> getBackendMenus($menu));
+            view() -> composer('admin.layouts.widgets.sidebar', function ($view) use ($menu, $requestPath){
+                $view -> with('menus', $this -> getAdminMenus($menu));
                 $view -> with('url', $requestPath);
             });
         }
@@ -164,7 +164,7 @@ class LayoutsBarsServiceProvider extends ServiceProvider
         }
     }
 
-    private function getBackendMenus($menu = '')
+    private function getAdminMenus($menu = '')
     {
         $menus = [
             'index' =>  [

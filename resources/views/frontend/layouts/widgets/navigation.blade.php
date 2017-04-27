@@ -38,7 +38,7 @@
                             <span>{{ Auth::user() -> name }}</span>
                             &nbsp;
                             @if(Auth::user() -> roleId == 1)
-                                <a class="redirect-to-backend" href="/backend"><i class="fa fa-tachometer" aria-hidden="true"></i> 进入后台</a>
+                                <a class="redirect-to-admin" href="/admin"><i class="fa fa-tachometer" aria-hidden="true"></i> 进入后台</a>
                             @endif
                             <a class="front-login-user-logout" href="/logout"><i class="fa fa-power-off" aria-hidden="true"></i> 退出</a>
                         </li>

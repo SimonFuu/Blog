@@ -28,7 +28,7 @@
         </div>
         <hr>
         <div class="contents-body">
-            {{ $article -> content }}
+            {!! $article -> content !!}
         </div>
         <div class="copyright-content">
             <p>文章内容为Simon Fu原创，转载请注明来自 <a href="{{ env('APP_URL') }}">Simon Fu's Blog-{{ env('APP_URL') }}</a>，谢谢！</p>
