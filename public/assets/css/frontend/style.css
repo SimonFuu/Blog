@@ -19,6 +19,14 @@ a:hover {
     color: blue;
 }
 
+table, th, td {
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #999;
+    padding: 3px 5px;
+    min-width: 50px;
+    height: 20px;
+}
 /**
  * 导航栏
  */
@@ -138,7 +146,7 @@ a:hover {
 }
 
 .contents-body {
-    padding-bottom: 20px;
+    padding: 20px 30px;
 }
 
 .index-article-content-thumb {

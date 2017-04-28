@@ -27,20 +27,25 @@ Route::get('/logout', 'LoginController@logout');
 Route::group(['prefix' => '/admin', 'middleware' => 'admin', 'namespace' => 'Admin'], function () {
     # 后台首页
     Route::get('/', 'IndexController@index');
-    # 文章列表
-    Route::get('/articles', 'ArticlesController@articlesList');
-    # 取消文章置顶
-    Route::get('/articles/un-stick/{id}', 'ArticlesController@unStickArticles');
-    # 设置文章置顶
-    Route::post('/articles/stick', 'ArticlesController@stickArticles');
-    # 将文章移至回收站
-    Route::get('/articles/delete/{id}', 'ArticlesController@moveToTrash');
-    # 编辑文章
-    Route::get('/articles/edit/{id}', 'ArticlesController@articleForm');
-    # 添加文章
-    Route::get('/articles/add', 'ArticlesController@articleForm');
-    # 保存文章
-    Route::post('/articles/store', 'ArticlesController@storeArticle');
+    Route::group(['prefix' => 'contents'], function () {
+        # 文章列表
+        Route::get('/articles', 'ArticlesController@articlesList');
+        # 取消文章置顶
+        Route::get('/articles/un-stick/{id}', 'ArticlesController@unStickArticles');
+        # 设置文章置顶
+        Route::post('/articles/stick', 'ArticlesController@stickArticles');
+        # 将文章移至回收站
+        Route::get('/articles/delete/{id}', 'ArticlesController@moveToTrash');
+        # 编辑文章
+        Route::get('/articles/edit/{id}', 'ArticlesController@articleForm');
+        # 添加文章
+        Route::get('/articles/add', 'ArticlesController@articleForm');
+        # 保存文章
+        Route::post('/articles/store', 'ArticlesController@storeArticle');
+        # 目录分类列表及添加表单
+        Route::get('/catalogs', 'CatalogsController@catalogsList');
+        Route::get('/tags', 'TagsController@tagsList');
+    });
     # 文件上传
     Route::post('/upload/{type}', 'UploadFilesController@store');
 });

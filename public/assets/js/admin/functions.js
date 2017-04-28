@@ -45,6 +45,17 @@ var searchFormDatePicker = function () {
     });
 };
 
+var stickArticleDatePicker = function () {
+    $('.toStickArticleTimeTo').datepicker({
+        language: 'zh-CN',
+        todayHighlight: true,
+        weekStart: 0,
+        autoclose: true,
+        clearBtn: true,
+        format: 'yyyy-mm-dd'
+    });
+};
+
 var articleFormDateTimePicker = function () {
     $('#articlePublishedAt').datetimepicker({
         language: 'zh-CN',

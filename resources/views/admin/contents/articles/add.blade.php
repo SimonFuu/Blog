@@ -1,8 +1,8 @@
 @extends('admin.layouts.common')
 @section('breadcrumb')
     <ol class="breadcrumb">
-        <li><a href="/admin/articles">内容管理</a></li>
-        <li><a href="/admin/articles">文章管理</a></li>
+        <li><a href="/admin/contents/articles">内容管理</a></li>
+        <li><a href="/admin/contents/articles">文章管理</a></li>
         <li class="active">{{ $type == 0 ? '发布' : '编辑' }}文章</li>
     </ol>
 @endsection
@@ -10,7 +10,7 @@
     <link href="//cdn.bootcss.com/smalot-bootstrap-datetimepicker/2.4.4/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <link href="//cdn.bootcss.com/wangeditor/2.1.20/css/wangEditor.min.css" rel="stylesheet">
     <link href="//cdn.bootcss.com/select2/4.0.3/css/select2.min.css" rel="stylesheet">
-    {!! Form::open(['url' => '/admin/articles/store', 'method' => 'post', 'class' => 'form-horizontal', 'role' => 'form']) !!}
+    {!! Form::open(['url' => '/admin/contents/articles/store', 'method' => 'post', 'class' => 'form-horizontal', 'role' => 'form']) !!}
         <!-- class include {'form-horizontal'|'form-inline'} -->
         <!--- Title Field --->
         <div class="form-group {{ $errors -> has('title') || $errors -> has('id') ? 'has-error' : ''}}">
@@ -37,7 +37,7 @@
                 {!! Form::select('catalogId', $catalogs, is_null($article) ? null : $article -> catalogId, ['class' => 'form-control']) !!}
             </div>
             <div class="col-md-1">
-                <a href="" class="btn btn-info">添加目录</a>
+                <a href="/admin/contents/catalogs" class="btn btn-info">添加目录</a>
             </div>
             <div class="col-md-3 button-right-errors-bag">
                 <span class="help-block">
@@ -54,7 +54,7 @@
                 {!! Form::select('tagId', $tags, is_null($article) ? null : $article -> tagId, ['class' => 'form-control article-tags']) !!}
             </div>
             <div class="col-md-1">
-                <a href="" class="btn btn-info">添加标签</a>
+                <a href="/admin/contents/tags" class="btn btn-info">添加标签</a>
             </div>
             <div class="col-md-3 button-right-errors-bag">
                 <span class="help-block">
@@ -108,7 +108,7 @@
         </div>
         <div class="col-md-offset-2 submit-buttons">
             <button class="btn btn-primary" type="submit">提交</button>
-            <a href="/admin/articles" class="btn btn-default">返回</a>
+            <a href="/admin/contents/articles" class="btn btn-default">返回</a>
         </div>
         <!--- Id Field --->
         @if($type != 0)
@@ -133,12 +133,16 @@
             var token = $('input[name="_token"]').val();
             editor.config.uploadParams = {
                 '_token': token
-            }
-            // 上传图片（举例）
+            };
+            editor.config.uploadImgFns.ontimeout = function (xhr) {
+                alert('上传超时，请重试！');
+            };
+            editor.config.uploadImgFns.onload = function (resultText, xhr) {
+                editor.command(null, 'insertHtml', '<img class="content-images" src="' + resultText + '"/>');
+            };
             editor.config.uploadImgUrl = '/admin/upload/images';
             editor.config.uploadImgFileName = 'images';
-            // 隐藏掉插入网络图片功能。该配置，只有在你正确配置了图片上传功能之后才可用。
-//            editor.config.hideLinkImg = true;
+            editor.config.hideLinkImg = true;
             editor.config.menus = [
                 'source', '|', 'bold', 'underline', 'italic', 'strikethrough', 'eraser', 'forecolor', 'bgcolor', '|',
                 'indent', 'lineheight', 'quote', 'fontfamily', 'fontsize', 'head', 'unorderlist', 'orderlist', 'alignleft',

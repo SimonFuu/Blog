@@ -76,7 +76,7 @@ class LayoutsBarsServiceProvider extends ServiceProvider
             $catalogs = DB::table('catalogs')
                 -> select('id', 'name')
                 -> where('publishedAt', '<=', date('Y-m-d H:i:s'))
-                -> where('isDelete', 0)
+                -> where('inTrash', 0)
                 -> orderBy('displayWeight' , 'ASC')
                 -> get();
             Redis::set('CATALOGS', $catalogs);
@@ -90,19 +90,20 @@ class LayoutsBarsServiceProvider extends ServiceProvider
     {
         return DB::table('tags')
             -> select('id', 'name', 'articlesCount')
-            -> where('isDelete', 0)
+            -> where('inTrash', 0)
             -> get();
     }
 
     private function getRecommendArticle()
     {
-        return DB::table('recommend_articles')
-            -> select('articles.id', 'articles.title')
-            -> leftJoin('articles', 'articles.id', '=', 'recommend_articles.articleId')
-            -> where('recommend_articles.isDelete', 0)
-            -> where('articles.isDelete', 0)
-            -> where('articles.publishedAt', '<=', date('Y-m-d H:i:s'))
-            -> orderBy('recommend_articles.displayWeight', 'DESC')
+        $date = date('Y-m-d H:i:s');
+        return DB::table('articles')
+            -> select('id', 'title')
+            -> where('inTrash', 0)
+            -> where('publishedAt', '<=', $date)
+            -> where('recommendTo', '>=', $date)
+            -> orderBy('weight', 'ASC')
+            -> orderBy('publishedAt', 'DESC')
             -> limit(env('ARTICLES_RECOMMEND_COUNT'))
             -> get();
     }
@@ -120,9 +121,9 @@ class LayoutsBarsServiceProvider extends ServiceProvider
             -> leftJoin('users', 'users.id', '=', 'comments.uId')
             -> leftJoin('articles', 'articles.id', '=', 'comments.articleId')
             -> orderBy('comments.createdAt', 'DESC')
-            -> where('comments.isDelete', 0)
-            -> where('users.isDelete', 0)
-            -> where('articles.isDelete', 0)
+            -> where('comments.inTrash', 0)
+            -> where('users.inTrash', 0)
+            -> where('articles.inTrash', 0)
             -> limit(10)
             -> get();
         if (count($comments) != 0) {
@@ -143,7 +144,7 @@ class LayoutsBarsServiceProvider extends ServiceProvider
         return DB::table('friendly_links')
             -> select('name', 'link')
             -> where('status', 1)
-            -> where('isDelete', 0)
+            -> where('inTrash', 0)
             -> orderBy('displayWeight', 'DESC')
             -> get();
     }
@@ -152,7 +153,7 @@ class LayoutsBarsServiceProvider extends ServiceProvider
     {
         $offset = $now - $timestamp;
         if ($offset >= 604800) {
-            return date('Y-m-d H:i:s');
+            return date('Y-m-d H:i:s', $timestamp);
         } elseif ($offset >= 86400) {
             return sprintf('%s天前', floor($offset / 86400));
         } elseif ($offset >= 3600) {
@@ -169,24 +170,24 @@ class LayoutsBarsServiceProvider extends ServiceProvider
         $menus = [
             'index' =>  [
                 (object)['name' => '首页', 'icon' => 'fa-home', 'url' => '/', 'submenus' => []],
-                (object)['name' => '内容管理', 'icon' => 'fa-list', 'url' => '/articles', 'submenus' => []],
+                (object)['name' => '内容管理', 'icon' => 'fa-list', 'url' => '/contents/articles', 'submenus' => []],
                 (object)['name' => '评论管理', 'icon' => 'fa-comments', 'url' => '/comments', 'submenus' => []],
                 (object)['name' => '用户管理', 'icon' => 'fa-users', 'url' => '/users', 'submenus' => []],
                 (object)['name' => '&nbsp;回收站', 'icon' => 'fa-trash', 'url' => '/trash', 'submenus' => []],
                 (object)['name' => '网站设置', 'icon' => 'fa-cogs', 'url' => '/settings', 'submenus' => []],
             ],
-            'articles' => [
-                (object)['name' => '文章管理', 'icon' => 'fa-list', 'url' => '/articles', 'submenus' => [
-                    (object)['name' => '文章列表', 'icon' => 'fa-left', 'url' => '/articles'],
-                    (object)['name' => '发布文章', 'icon' => 'fa-left', 'url' => '/articles/add']
+            'contents' => [
+                (object)['name' => '文章管理', 'icon' => 'fa-list', 'url' => '/contents/articles', 'submenus' => [
+                    (object)['name' => '文章列表', 'icon' => 'fa-left', 'url' => '/contents/articles'],
+                    (object)['name' => '发布文章', 'icon' => 'fa-left', 'url' => '/contents/articles/add']
                 ]],
-                (object)['name' => '栏目管理', 'icon' => 'fa-list-alt', 'url' => '/catalogs', 'submenus' => [
-                    (object)['name' => '栏目列表', 'icon' => 'fa-left', 'url' => '/catalogs'],
-                    (object)['name' => '添加栏目', 'icon' => 'fa-left', 'url' => '/catalogs/add']
+                (object)['name' => '目录分类', 'icon' => 'fa-list-alt', 'url' => '/contents/catalogs', 'submenus' => [
+                    (object)['name' => '目录分类', 'icon' => 'fa-left', 'url' => '/contents/catalogs'],
+//                    (object)['name' => '添加目录', 'icon' => 'fa-left', 'url' => '/catalogs/add']
                 ]],
-                (object)['name' => '标签管理', 'icon' => 'fa-tags', 'url' => '/tags', 'submenus' => [
-                    (object)['name' => '标签列表', 'icon' => 'fa-left', 'url' => '/tags'],
-                    (object)['name' => '添加标签', 'icon' => 'fa-left', 'url' => '/tags/add']
+                (object)['name' => '文章标签', 'icon' => 'fa-tags', 'url' => '/contents/tags', 'submenus' => [
+                    (object)['name' => '文章标签', 'icon' => 'fa-left', 'url' => '/contents/tags'],
+//                    (object)['name' => '添加标签', 'icon' => 'fa-left', 'url' => '/tags/add']
                 ]],
             ]
         ];

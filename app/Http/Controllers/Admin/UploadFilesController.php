@@ -37,21 +37,30 @@ class UploadFilesController extends Controller
             return sprintf('error|%s', $error);
         }
         if ($request -> hasFile('images')) {
+            $waterMarkFontSize = 14;
             $relativeDirPath = '/images/posts/' . date('Ymd');
-            $absluateDirPath = storage_path('app/public') . $relativeDirPath;
-            $this -> makeDir($absluateDirPath);
+            $absoluteDirPath = storage_path('app/public') . $relativeDirPath;
+            $this -> makeDir($absoluteDirPath);
             $filename = Uuid::uuid1() -> toString() . '.' . $request->images->extension();
             $img = Image::make($request -> images);
-            $str = sprintf('%s@%s', env('APP_NAME'), env('APP_URL'));
-            $img -> text($str, $img -> width(), $img -> height(), function($font) {
+            $img -> text('@' . env('APP_NAME'), $img -> width() - 10, $img -> height() - ($waterMarkFontSize + 3),
+            function($font) use ($waterMarkFontSize) {
                 $font->file(storage_path('app/local/fonts') . '/msyh.ttf');
-                $font->size(18);
-                $font->color('#2981B7');
+                $font->size($waterMarkFontSize);
+                $font->color('#FFFFFF');
+                $font->align('right');
+                $font->valign('bottom');
+            });
+            $img -> text(env('APP_URL'), $img -> width() - 10, $img -> height(),
+            function($font) use ($waterMarkFontSize) {
+                $font->file(storage_path('app/local/fonts') . '/msyh.ttf');
+                $font->size($waterMarkFontSize);
+                $font->color('#FFFFFF');
                 $font->align('right');
                 $font->valign('bottom');
             });
             $relativeFilePath = $relativeDirPath . '/' . $filename;
-            $img -> save($absluateDirPath . '/' . $filename);
+            $img -> save($absoluteDirPath . '/' . $filename);
             $url = env('IMG_SERVER') . $relativeFilePath;
             return $url;
         } else {

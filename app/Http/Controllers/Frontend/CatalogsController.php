@@ -18,7 +18,7 @@ class CatalogsController extends Controller
             -> leftJoin('users', 'users.id', '=', 'articles.authorId')
             -> leftJoin('catalogs', 'catalogs.id', '=', 'articles.catalogId')
             -> leftJoin('tags', 'tags.id', '=', 'articles.tagId')
-            -> where('articles.isDelete', 0)
+            -> where('articles.inTrash', 0)
             -> where(function ($query) use ($id) {
                 if ($id > 1) {
                     $query -> where('articles.catalogId', $id);

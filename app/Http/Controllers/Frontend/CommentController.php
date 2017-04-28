@@ -22,7 +22,7 @@ class CommentController extends Controller
         if (isset($data['parentCommentId'])) {
             $parentComment = DB::table('comments')
                 -> select('id', 'uId', 'parentCommentId', 'baseCommentId', 'path')
-                -> where('isDelete', 0)
+                -> where('inTrash', 0)
                 -> where('id', $data['parentCommentId'])
                 -> first();
             if (is_null($parentComment)) {
@@ -44,7 +44,7 @@ class CommentController extends Controller
     {
         $comment = DB::table('comments')
             -> select('uId', 'path')
-            -> where('isDelete', 0)
+            -> where('inTrash', 0)
             -> where('id', $cId)
             -> first();
         if (is_null($comment)) {
@@ -55,7 +55,7 @@ class CommentController extends Controller
                 DB::table('comments')
                     -> where('id', $cId)
                     -> orWhere('path', 'like', $path . '%')
-                    -> update(['isDelete' => 1]);
+                    -> update(['inTrash' => 1]);
                 return redirect() -> back() -> with('success', '评论删除成功！');
             } else {
                 return redirect() -> back() -> with('error', '您暂无权限删除该条评论！');

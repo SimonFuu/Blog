@@ -2,12 +2,14 @@
 @section('content')
     @foreach($articles as $key => $arc)
         <div class="module">
+            {{--{{ $arc -> weight < 1000 ? '' : ''}}--}}
             <div class="contents-header">
-                <h2><a href="/article/{{ $arc -> id }}">{{ $arc -> title }}</a></h2>
+                <h2>
+                    <a href="/article/{{ $arc -> id }}">{{ $arc -> title }}</a></h2>
                 <div class="row">
                     <div class="col-md-2">
                         <i class="fa fa-user" aria-hidden="true"></i>
-                        &nbsp;
+                        &nbsp
                         {{ $arc -> name }}
                     </div>
                     <div class="col-md-4">

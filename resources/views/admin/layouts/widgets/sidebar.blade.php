@@ -6,7 +6,7 @@
         @if(count($menu -> submenus) > 0)
             @foreach($menu -> submenus as $submenu)
                 @php($count = substr_count($submenu -> url, '/'))
-                @if($count > 1 || ($count == 1 && substr_count($url, '/') > 2))
+                @if($count > 2 || ($count == 2 && substr_count($url, '/') > 3))
                     @php($status = strpos($url , $submenu -> url))
                 @else
                     @php($status = ($url == $submenu -> url))

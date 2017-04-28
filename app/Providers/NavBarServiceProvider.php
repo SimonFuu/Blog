@@ -42,7 +42,7 @@ class NavBarServiceProvider extends ServiceProvider
             $catalogs = DB::table('catalogs')
                 -> select('id', 'name')
                 -> where('publishedAt', '<=', date('Y-m-d H:i:s'))
-                -> where('isDelete', 0)
+                -> where('inTrash', 0)
                 -> orderBy('displayWeight' , 'ASC')
                 -> get();
             Redis::set('CATALOGS', $catalogs);

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Auth;
+use QL\QueryList;
 
 class ArticlesController extends Controller
 {
@@ -14,15 +15,14 @@ class ArticlesController extends Controller
         $pagination = null;
         $articles = DB::table('articles')
             -> select('articles.id', 'articles.title', 'users.name as author', 'catalogs.name as catalog',
-                'articles.createdAt', 'articles.publishedAt', 'articles.weight', 'tags.name as tag')
+                'articles.createdAt', 'articles.publishedAt', 'articles.weight', 'tags.name as tag', 'articles.recommendTo')
             -> leftJoin('users', 'users.id', '=', 'articles.authorId')
             -> leftJoin('tags', 'tags.id', '=', 'articles.tagId')
             -> leftJoin('catalogs', 'catalogs.id', '=', 'articles.catalogId')
-            -> where('articles.isDelete', 0)
             -> where('articles.inTrash', 0)
-            -> where('users.isDelete', 0)
-            -> where('tags.isDelete', 0)
-            -> where('catalogs.isDelete', 0)
+            -> where('users.inTrash', 0)
+            -> where('tags.inTrash', 0)
+            -> where('catalogs.inTrash', 0)
             -> where(function ($query) use ($request) {
                 if ($request -> has('title') && $request -> title != '') {
                     $query -> where('articles.title', 'like', '%' .$request -> title. '%');
@@ -39,14 +39,18 @@ class ArticlesController extends Controller
                 if ($request -> has('end') && $request -> end != '') {
                     $query -> where('articles.publishedAt', '<=', $request -> end . ' 23:59:59');
                 }
+                if ($request -> has('isRecommend')) {
+                    $query -> where('articles.recommendTo', '>=', date('Y-m-d H:i:s'));
+                }
             })
-            -> orderBy('articles.weight', 'ASC')
             -> orderBy('articles.createdAt', 'DESC')
             -> paginate(15);
         $tags = $this -> getTags();
         $catalogs = $this -> getCatalogs();
+        $catalogs[1] = '首页';
+        ksort($catalogs);
         $defaults = $this -> getSearchConditions($request);
-        return view('admin.contents.articlesList', ['articles' => $articles, 'catalogs' => $catalogs,
+        return view('admin.contents.articles.list', ['articles' => $articles, 'catalogs' => $catalogs,
             'tags' => $tags, 'defaults' => $defaults]);
     }
 
@@ -55,7 +59,7 @@ class ArticlesController extends Controller
         try {
             DB::table('articles')
                 -> where('id', $id)
-                -> update(['weight' => 1000]);
+                -> update(['weight' => 1000, 'recommendTo' => date('Y-m-d')]);
             return redirect() -> back() -> with('success', '取消文章置顶成功！');
         } catch (\Exception $e) {
             return redirect() -> back() -> with('error', '取消文章置顶失败，原因：' . $e -> getMessage());
@@ -65,22 +69,33 @@ class ArticlesController extends Controller
     public function stickArticles(Request $request)
     {
         $roles = [
-            'id' => 'required|exists:articles,id,isDelete,0',
-            'weight' => 'required|numeric|min:0|max:999'
+            'id' => 'required|exists:articles,id,inTrash,0',
+            'weight' => 'required|numeric|min:0|max:1000',
+            'recommendTo' => 'required|date'
         ];
         $messages = [
             'id.required' => '该文章不存在！',
             'id.exist' => '该文章不存在！',
             'weight.required' => '请输入文章显示权重！',
-            'weight.numeric' => '权重应为0-999之间的数字！',
-            'weight.min' => '权重应为0-999之间的数字！',
-            'weight.max' => '权重应为0-999之间的数字！'
+            'weight.numeric' => '权重应为0-1000之间的数字！',
+            'weight.min' => '权重应为0-1000之间的数字！',
+            'weight.max' => '权重应为0-1000之间的数字！',
+            'recommendTo.required' => '请选择推荐结束日期',
+            'recommendTo.date' => '选择的日期格式不正确！'
         ];
         $this -> validate($request, $roles, $messages);
+        $count = DB::table('articles')
+            -> where('inTrash', 0)
+            -> where('recommendTo', '>=', date('Y-m-d H:i:s'))
+            -> count();
+        if ($count >= env('ARTICLES_RECOMMEND_COUNT')) {
+            return redirect() -> back() -> with('error',
+                sprintf('设置文章置顶失败，原因：当前只能设置%s篇置顶推荐文章！', env('ARTICLES_RECOMMEND_COUNT')));
+        }
         try {
             DB::table('articles')
                 -> where('id', $request -> id)
-                -> update(['weight' => $request -> weight]);
+                -> update(['weight' => $request -> weight, 'recommendTo' => $request -> recommendTo . ' 23:59:59']);
             return redirect() -> back() -> with('success', '设置文章置顶成功！');
         } catch (\Exception $e) {
             return redirect() -> back() -> with('error', '设置文章置顶失败，原因：' . $e -> getMessage());
@@ -115,7 +130,7 @@ class ArticlesController extends Controller
         } else {
             $article = null;
         }
-        return view('admin.contents.articleForm',
+        return view('admin.contents.articles.add',
             ['type' => $id, 'article' => $article, 'tags' => $tags, 'catalogs' => $catalogs]);
     }
 
@@ -123,8 +138,8 @@ class ArticlesController extends Controller
     {
         $roles = [
             'title' => 'required|min:5|max:20',
-            'catalogId' => 'required|exists:catalogs,id,isDelete,0',
-            'tagId' => 'required|exists:tags,id,isDelete,0',
+            'catalogId' => 'required|exists:catalogs,id,inTrash,0',
+            'tagId' => 'required|exists:tags,id,inTrash,0',
             'publishedAt' => 'required|date',
             'abstract' => 'sometimes|max:183',
             'content' => 'required|min:20|max:10000',
@@ -161,6 +176,12 @@ class ArticlesController extends Controller
                     -> update($data);
                 return redirect('/admin/articles') -> with('success', '文章编辑成功！');
             } else {
+                $content = QueryList::Query($data['content'], [
+                    'imageUrl' => [
+                        '.content-images', 'src'
+                    ]
+                ]);
+                $data['thumb'] = $content -> data[array_rand($content -> data)]['imageUrl'];
                 $data['authorId'] = Auth::user() -> id;
                 DB::table('articles')
                     -> insert($data);
@@ -177,7 +198,7 @@ class ArticlesController extends Controller
         $tags = ['0' => '请选择'];
         $dbTags = DB::table('tags')
             -> select('id', 'name')
-            -> where('isDelete', 0)
+            -> where('inTrash', 0)
             -> get();
         if (count($dbTags) > 0) {
             foreach ($dbTags as $dbTag) {
@@ -192,14 +213,14 @@ class ArticlesController extends Controller
         $catalogs = ['0' => '请选择'];
         $dbCatalogs = DB::table('catalogs')
             -> select('id', 'name')
-            -> where('isDelete', 0)
-            -> where('id', '<>', 1)
+            -> where('inTrash', 0)
             -> get();
         if (count($dbCatalogs) > 0) {
             foreach ($dbCatalogs as $dbCatalog) {
                 $catalogs[$dbCatalog -> id] = $dbCatalog -> name;
             }
         }
+        unset($catalogs[1]);
         return $catalogs;
     }
 

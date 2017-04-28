@@ -12,18 +12,15 @@ class IndexController extends Controller
         $articles = DB::table('articles')
             -> select(
                 'articles.id', 'articles.title', 'articles.abstract as abstractContent', 'articles.thumb', 'users.name',
-                'tags.name as tag', 'articles.tagId', 'catalogs.name as catalog', 'articles.catalogId',
-                'articles.weight', 'articles.publishedAt'
+                'tags.name as tag', 'articles.tagId', 'catalogs.name as catalog', 'articles.catalogId', 'articles.publishedAt'
                 )
             -> leftJoin('users', 'users.id', '=', 'articles.authorId')
             -> leftJoin('catalogs', 'catalogs.id', '=', 'articles.catalogId')
             -> leftJoin('tags', 'tags.id', '=', 'articles.tagId')
-            -> where('articles.isDelete', 0)
             -> where('articles.inTrash', 0)
-            -> where('catalogs.isDelete', 0)
-            -> where('tags.isDelete', 0)
+            -> where('catalogs.inTrash', 0)
+            -> where('tags.inTrash', 0)
             -> where('articles.publishedAt', '<=', date('Y-m-d H:i:s'))
-            -> orderBy('articles.weight', 'ASC')
             -> orderBy('articles.publishedAt', 'DESC')
             -> paginate(env('ARTICLES_PAGINATION_COUNT'));
         return view('frontend.index', ['articles' => $articles]);

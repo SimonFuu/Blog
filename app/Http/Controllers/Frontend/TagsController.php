@@ -18,7 +18,7 @@ class TagsController extends Controller
             -> leftJoin('users', 'users.id', '=', 'articles.authorId')
             -> leftJoin('catalogs', 'catalogs.id', '=', 'articles.catalogId')
             -> leftJoin('tags', 'tags.id', '=', 'articles.tagId')
-            -> where('articles.isDelete', 0)
+            -> where('articles.inTrash', 0)
             -> where('articles.tagId', $id)
             -> where('articles.publishedAt', '<=', date('Y-m-d H:i:s'))
             -> orderBy('articles.publishedAt', 'DESC')
