@@ -46,6 +46,7 @@ class ArticlesController extends Controller
             -> orderBy('articles.createdAt', 'DESC')
             -> paginate(15);
         $tags = $this -> getTags();
+        $tags[1] = 'default';
         $catalogs = $this -> getCatalogs();
         $catalogs[1] = '首页';
         ksort($catalogs);
@@ -174,7 +175,7 @@ class ArticlesController extends Controller
                 DB::table('articles')
                     -> where('id', $data['id'])
                     -> update($data);
-                return redirect('/admin/articles') -> with('success', '文章编辑成功！');
+                return redirect('/admin/contents/articles') -> with('success', '文章编辑成功！');
             } else {
                 $content = QueryList::Query($data['content'], [
                     'imageUrl' => [
@@ -185,10 +186,10 @@ class ArticlesController extends Controller
                 $data['authorId'] = Auth::user() -> id;
                 DB::table('articles')
                     -> insert($data);
-                return redirect('/admin/articles') -> with('success', '文章创建成功！');
+                return redirect('/admin/contents/articles') -> with('success', '文章创建成功！');
             }
         } catch (\Exception $e) {
-            return redirect('/admin/articles') -> with('error', '文章处理失败，原因：' . $e -> getMessage());
+            return redirect('/admin/contents/articles') -> with('error', '文章处理失败，原因：' . $e -> getMessage());
         }
 
     }
@@ -205,6 +206,7 @@ class ArticlesController extends Controller
                 $tags[$dbTag -> id] = $dbTag -> name;
             }
         }
+        unset($tags[1]);
         return $tags;
     }
 
@@ -214,6 +216,7 @@ class ArticlesController extends Controller
         $dbCatalogs = DB::table('catalogs')
             -> select('id', 'name')
             -> where('inTrash', 0)
+            -> orderBy('displayWeight', 'ASC')
             -> get();
         if (count($dbCatalogs) > 0) {
             foreach ($dbCatalogs as $dbCatalog) {

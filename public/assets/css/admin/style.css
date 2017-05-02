@@ -29,6 +29,7 @@ a:hover {
 .content-list {
     width: 95%;
 }
+
 /*@media (min-width: 838px)  {*/
     /*.content-list {*/
         /*width: 750px;*/
@@ -53,6 +54,11 @@ th, td {
 
 .notify-area {
     margin-bottom: 20px;
+}
+
+.errorMessages {
+    text-align: center;
+    margin: 20px -15px;
 }
 /**
  * 头部导航栏

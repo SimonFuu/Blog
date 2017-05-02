@@ -88,10 +88,20 @@ class LayoutsBarsServiceProvider extends ServiceProvider
 
     private function getTags()
     {
-        return DB::table('tags')
-            -> select('id', 'name', 'articlesCount')
-            -> where('inTrash', 0)
-            -> get();
+        $tags = Redis::get('TAGS');
+        if (!$tags) {
+            $tags = DB::table('tags')
+                -> select('id', 'name',
+                    DB::raw('(SELECT count(a.id) FROM bl_articles as a 
+                WHERE a.inTrash = 0 AND a.tagId = bl_tags.id) as articlesCount'))
+                -> where('inTrash', 0)
+                -> where('id', '>', '1')
+                -> get();
+            Redis::set('TAGS', $tags);
+        } else {
+            $tags = json_decode($tags);
+        }
+        return $tags;
     }
 
     private function getRecommendArticle()

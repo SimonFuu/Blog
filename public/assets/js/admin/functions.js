@@ -82,8 +82,41 @@ var stickArticles = function () {
     })
 };
 
+var deleteConfirmation = function () {
+    $('.del-actions').on('click', function () {
+        return confirm('是否要删除该目录？');
+    });
+};
+
+var editTag = function () {
+    $('.edit-tag').on('click', function () {
+        var tId = $(this).data('tag-id');
+        var tName = $(this).data('tag-name');
+        $('.form-group').addClass('has-warning');
+        $('.tag-id-filed').html('<input class="form-control" name="id" type="hidden">');
+        $('h4').html('编辑新标签');
+        $('input[name="name"]').val(tName);
+        $('input[name="id"]').val(tId);
+        $('.submit-tag-button > .hidden').removeClass('hidden')
+        setTimeout(function () {
+            $('.form-group').removeClass('has-warning');
+        }, 1000)
+    });
+};
+
+var cancelEditTag = function () {
+    $('.submit-tag-button > .btn-default').on('click', function () {
+        $('h4').html('添加新标签');
+        $('input[name="name"]').val('');
+        $('.tag-id-filed').html('');
+        $(this).addClass('hidden')
+    });
+};
 $(function () {
     activeSideBar();
     resizeSideBar();
     stickArticles();
+    editTag();
+    cancelEditTag();
+    deleteConfirmation();
 });

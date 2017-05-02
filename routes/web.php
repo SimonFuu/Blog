@@ -44,7 +44,18 @@ Route::group(['prefix' => '/admin', 'middleware' => 'admin', 'namespace' => 'Adm
         Route::post('/articles/store', 'ArticlesController@storeArticle');
         # 目录分类列表及添加表单
         Route::get('/catalogs', 'CatalogsController@catalogsList');
+        # 编辑目录表单
+        Route::get('/catalogs/edit/{id}', 'CatalogsController@editCatalog');
+        # 保存添加 ／ 编辑目录
+        Route::post('/catalogs/store', 'CatalogsController@storeCatalog');
+        # 删除目录
+        Route::get('/catalogs/delete/{id}', 'CatalogsController@deleteCatalog');
+        # 标签列表及添加表单
         Route::get('/tags', 'TagsController@tagsList');
+        # 保存添加 ／ 编辑标签
+        Route::post('/tags/store', 'TagsController@storeTag');
+        # 删除标签
+        Route::get('/tags/delete/{id}', 'TagsController@deleteTag');
     });
     # 文件上传
     Route::post('/upload/{type}', 'UploadFilesController@store');
