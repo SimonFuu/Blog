@@ -23,16 +23,16 @@ class CatalogsController extends Controller
 
     public function storeCatalog(Request $request)
     {
-        $data = $request -> except('_token');
+        $data = $request -> except(['_token', '_url']);
         $roles = [
             'id' => 'sometimes|exists:catalogs,id,inTrash,0',
-            'name' => 'required|max:5' . (isset($data['id']) ? '|unique:catalogs,name,'.$request -> id : ''),
+            'name' => 'required|max:10' . (isset($data['id']) ? '|unique:catalogs,name,'.$request -> id : ''),
             'displayWeight' => 'required|numeric|min:1|max:1000'
         ];
         $messages = [
             'id.exists' => '该目录不存在或已删除！',
             'name.required' => '请输入目录名称！',
-            'name.max' => '目录名称长度最大为5！',
+            'name.max' => '目录名称长度最大为10！',
             'name.unique' => '该目录名称已经存在！',
             'displayWeight.required' => '请输入展示权重！',
             'displayWeight.numeric' => '展示权重需为1-1000的数字！',

@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body>
-    <script type="text/javascript" src="http://www.qq.com/404/search_children.js" charset="utf-8" homePageUrl="#" homePageName="返回"></script>
+    <script type="text/javascript" src="//qzonestyle.gtimg.cn/qzone/hybrid/app/404/search_children.js" homePageName="返回" homePageUrl="http://www.baobeihuijia.com"></script>
     <script>
         window.onload = function () {
             var link = document.getElementsByClassName('desc_link')[0];

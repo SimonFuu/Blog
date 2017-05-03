@@ -17,7 +17,7 @@ class CommentController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request -> except('_token');
+        $data = $request -> except(['_token', '_url']);
         $data['uId'] = Auth::user() -> id;
         if (isset($data['parentCommentId'])) {
             $parentComment = DB::table('comments')

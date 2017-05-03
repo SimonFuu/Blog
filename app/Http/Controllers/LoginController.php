@@ -163,7 +163,7 @@ class LoginController extends Controller
             'oId' => 'required|min:1|max:255'
         ];
         $this -> validate($request, $roles);
-        $data = $request -> except('_token');
+        $data = $request -> except(['_token', '_url']);
         $param = json_encode($data);
         $id = str_replace('.', '',uniqid('', true));
         Cache::add($id, $param, env('BIND_CONFIRMATION_EXPIRED_IN'));

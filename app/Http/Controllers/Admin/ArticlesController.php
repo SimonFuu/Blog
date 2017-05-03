@@ -165,7 +165,7 @@ class ArticlesController extends Controller
             'id.exists' => '文章不存在或已删除！',
         ];
         $this -> validate($request, $roles, $messages);
-        $data = $request -> except('_token');
+        $data = $request -> except(['_token', '_url']);
         if (is_null($data['abstract']) || $data['abstract'] == '') {
             $abstract = strip_tags($data['content']);
             $data['abstract'] = mb_strlen($abstract) >= 180 ? mb_substr($abstract, 0, 180) . '...' : $abstract;

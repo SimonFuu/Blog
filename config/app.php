@@ -1,5 +1,7 @@
 <?php
 
+header('X-Powered-By:' . env('APP_NAME'));
+
 return [
 
     /*

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 
 class TagsController extends Controller
 {
@@ -21,15 +22,15 @@ class TagsController extends Controller
 
     public function storeTag(Request $request)
     {
-        $data = $request -> except('_token');
+        $data = $request -> except(['_token', '_url']);
         $roles = [
             'id' => 'sometimes|exists:tags,id,inTrash,0',
-            'name' => 'required|max:5' . (isset($data['id']) ? '|unique:tags,name,'.$request -> id : ''),
+            'name' => 'required|max:10' . (isset($data['id']) ? '|unique:tags,name,'.$request -> id : ''),
         ];
         $messages = [
             'id.exists' => '该标签不存在或已删除！',
             'name.required' => '请输入标签名称！',
-            'name.max' => '标签名称长度最大为5！',
+            'name.max' => '标签名称长度最大为10！',
             'name.unique' => '该标签名称已经存在！',
         ];
         $this -> validate($request, $roles, $messages);
@@ -45,6 +46,7 @@ class TagsController extends Controller
                 DB::table('tags')
                     -> insert($data);
             }
+            Redis::del('TAGS');
             return redirect('/admin/contents/tags') -> with('success', '保存成功');
         } catch (\Exception $e) {
             return redirect('/admin/contents/tags') -> with('error', '保存标签失败，错误原因：' . $e -> getMessage());
