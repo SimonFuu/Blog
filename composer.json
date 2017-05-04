@@ -13,9 +13,9 @@
         "laravelcollective/html": "^5.4",
         "predis/predis": "^1.1",
         "ramsey/uuid": "^3.6",
+        "socialiteproviders/google": "^3.0",
         "socialiteproviders/qq": "^3.0",
-        "socialiteproviders/weibo": "^3.0",
-        "socialiteproviders/weixin": "^4.0"
+        "socialiteproviders/weibo": "^3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

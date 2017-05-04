@@ -36,14 +36,26 @@ return [
     ],
 
     'weibo' => [
-        'client_id' => '2785719256',
-        'client_secret' => '29784adcb76395378ff8670c165a2688',
-        'redirect' => 'http://www.fushupeng.com'
+        'client_id' => env('WEIBO_KEY'),
+        'client_secret' => env('WEIBO_SECRET'),
+        'redirect' => env('WEIBO_REDIRECT_URI')
     ],
 
     'github' => [
-        'client_id' => 'ac2fd40636dbb5f53d0e',
-        'client_secret' => 'a60bcedd5f3576f000338f8e750a26c9a8d6a403',
-        'redirect' => 'http://www.fushupeng.dev/oauth/github/callback'
+        'client_id' => env('GITHUB_KEY'),
+        'client_secret' => env('GITHUB_SECRET'),
+        'redirect' => env('GITHUB_REDIRECT_URI')
+    ],
+
+    'qq' => [
+        'client_id' => env('QQ_KEY'),
+        'client_secret' => env('QQ_SECRET'),
+        'redirect' => env('QQ_REDIRECT_URI')
+    ],
+
+    'google' => [
+        'client_id' => env('GOOGLE_KEY'),
+        'client_secret' => env('GOOGLE_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT_URI')
     ]
 ];

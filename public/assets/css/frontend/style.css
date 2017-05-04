@@ -105,19 +105,19 @@ table, th, td {
     margin-left: 5px;
     margin-right: 5px;
 }
-.widget-github a {
+.widget-github, .widget-github a {
     color: #262626;
 }
 
-.widget-weibo a {
+.widget-weibo, .widget-weibo a {
     color: #E40015;
 }
 
-.widget-weixin a {
-    color: #15A900;
+.widget-google, .widget-google a {
+    color: #4482fb;
 }
 
-.widget-qq a {
+.widget-qq, .widget-qq a {
     color: #1386E0;
 }
 

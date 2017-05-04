@@ -103,7 +103,7 @@ class LoginController extends Controller
             $data = [
                 'source' => $service,
                 'oId' => $user -> id,
-                'name' => $user -> name,
+                'name' => $user -> nickname,
                 'avatar' => $user -> avatar,
                 'email' => $user -> email,
             ];
@@ -203,6 +203,9 @@ class LoginController extends Controller
                         -> insertGetId($userInfo);
 
                 } else {
+                    DB::table('users')
+                        -> where('id', $user -> id)
+                        -> update(['name' => $data -> name, 'avatar' => $data -> avatar]);
                     $pKey = $user -> id;
                     $username = $user -> username;
                 }
