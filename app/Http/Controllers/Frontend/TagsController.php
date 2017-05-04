@@ -9,6 +9,10 @@ class TagsController extends Controller
 {
     public function getTagArticles($id = 0)
     {
+        $count = DB::table('tags') -> where('inTrash', 0) -> where('id', $id) -> count();
+        if (!$count) {
+            return abort(404);
+        }
         # 首页文章的显示最大字数是185
         $articles = DB::table('articles')
             -> select(

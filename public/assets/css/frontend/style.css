@@ -145,6 +145,10 @@ table, th, td {
     padding: 3px 20px;
 }
 
+.no-articles h2{
+    margin-left: 20px;
+    margin-bottom: 20px !important;
+}
 .contents-body {
     padding: 20px 30px;
 }
