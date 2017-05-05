@@ -33,7 +33,6 @@
                     @if(Auth() -> check())
                         {{--登录成功后，显示登录用户昵称及头像--}}
                         <li class="front-login-user-info">
-                            <a href="#"><i class="fa fa-bell-o" aria-hidden="true"></i></a>
                             <img class="front-login-user-avatar" src="{{ Auth::user() -> avatar }}" alt="">
                             <span>{{ Auth::user() -> name }}</span>
                             &nbsp;

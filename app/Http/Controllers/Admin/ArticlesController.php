@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Auth;
+use Illuminate\Support\Facades\Redis;
 use QL\QueryList;
 
 class ArticlesController extends Controller
@@ -175,6 +176,8 @@ class ArticlesController extends Controller
                 DB::table('articles')
                     -> where('id', $data['id'])
                     -> update($data);
+                Redis::del('TAGS');
+
                 return redirect('/admin/contents/articles') -> with('success', '文章编辑成功！');
             } else {
                 $content = QueryList::Query($data['content'], [
@@ -182,10 +185,13 @@ class ArticlesController extends Controller
                         '.content-images', 'src'
                     ]
                 ]);
-                $data['thumb'] = $content -> data[array_rand($content -> data)]['imageUrl'];
+                if (count($content -> data) != 0) {
+                    $data['thumb'] = $content -> data[array_rand($content -> data)]['imageUrl'];
+                }
                 $data['authorId'] = Auth::user() -> id;
                 DB::table('articles')
                     -> insert($data);
+                Redis::del('TAGS');
                 return redirect('/admin/contents/articles') -> with('success', '文章创建成功！');
             }
         } catch (\Exception $e) {
