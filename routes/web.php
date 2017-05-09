@@ -57,6 +57,12 @@ Route::group(['prefix' => '/admin', 'middleware' => 'admin', 'namespace' => 'Adm
         # 删除标签
         Route::get('/tags/delete/{id}', 'TagsController@deleteTag');
     });
+    Route::group(['prefix' => 'comments'], function () {
+        Route::get('/list', 'CommentsController@commentsList');
+    });
+    Route::group(['prefix' => 'admins'], function () {
+        Route::get('/{id}', 'AdminsController@adminInfo');
+    });
     # 文件上传
     Route::post('/upload/{type}', 'UploadFilesController@store');
 });

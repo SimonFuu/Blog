@@ -181,7 +181,7 @@ class LayoutsBarsServiceProvider extends ServiceProvider
             'index' =>  [
                 (object)['name' => '首页', 'icon' => 'fa-home', 'url' => '/', 'submenus' => []],
                 (object)['name' => '内容管理', 'icon' => 'fa-list', 'url' => '/contents/articles', 'submenus' => []],
-                (object)['name' => '评论管理', 'icon' => 'fa-comments', 'url' => '/comments', 'submenus' => []],
+                (object)['name' => '评论管理', 'icon' => 'fa-comments', 'url' => '/comments/list', 'submenus' => []],
                 (object)['name' => '用户管理', 'icon' => 'fa-users', 'url' => '/users', 'submenus' => []],
                 (object)['name' => '&nbsp;回收站', 'icon' => 'fa-trash', 'url' => '/trash', 'submenus' => []],
                 (object)['name' => '网站设置', 'icon' => 'fa-cogs', 'url' => '/settings', 'submenus' => []],
@@ -193,11 +193,15 @@ class LayoutsBarsServiceProvider extends ServiceProvider
                 ]],
                 (object)['name' => '目录分类', 'icon' => 'fa-list-alt', 'url' => '/contents/catalogs', 'submenus' => [
                     (object)['name' => '目录分类', 'icon' => 'fa-left', 'url' => '/contents/catalogs'],
-//                    (object)['name' => '添加目录', 'icon' => 'fa-left', 'url' => '/catalogs/add']
                 ]],
                 (object)['name' => '文章标签', 'icon' => 'fa-tags', 'url' => '/contents/tags', 'submenus' => [
                     (object)['name' => '文章标签', 'icon' => 'fa-left', 'url' => '/contents/tags'],
-//                    (object)['name' => '添加标签', 'icon' => 'fa-left', 'url' => '/tags/add']
+                ]],
+            ],
+            'comments' => [
+                (object)['name' => '评论管理', 'icon' => 'fa-list', 'url' => '/comments/list', 'submenus' => [
+                    (object)['name' => '评论列表', 'icon' => 'fa-left', 'url' => '/comments/list'],
+                    (object)['name' => '敏感词列表', 'icon' => 'fa-left', 'url' => '/comments/words'],
                 ]],
             ]
         ];

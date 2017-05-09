@@ -89,18 +89,18 @@
                             <div class="widget-login">
                                 快读登录
                                 <div class="widgets">
-                                    <div class="widget-google">
-                                        <a href="/oauth/google" onclick='connectToOAuth($(this)); return false;'><i class="fa fa-google fa-2x" aria-hidden="true"></i></a>
-                                    </div>
-                                    <div class="widget-github">
-                                        <a href="/oauth/github" onclick='connectToOAuth($(this)); return false;'><i class="fa fa-github fa-2x" aria-hidden="true"></i></a>
-                                    </div>
+                                    {{--<div class="widget-google">--}}
+                                        {{--<a href="/oauth/google" onclick='connectToOAuth($(this)); return false;'><i class="fa fa-google fa-2x" aria-hidden="true"></i></a>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="widget-github">--}}
+                                        {{--<a href="/oauth/github" onclick='connectToOAuth($(this)); return false;'><i class="fa fa-github fa-2x" aria-hidden="true"></i></a>--}}
+                                    {{--</div>--}}
                                     <div class="widget-weibo">
                                         <a href="/oauth/weibo" onclick='connectToOAuth($(this)); return false;'><i class="fa fa-weibo fa-2x" aria-hidden="true"></i></a>
                                     </div>
-                                    <div class="widget-qq">
-                                        <a href="/oauth/qq" onclick='connectToOAuth($(this)); return false;'><i class="fa fa-qq fa-2x" aria-hidden="true"></i></a>
-                                    </div>
+                                    {{--<div class="widget-qq">--}}
+                                        {{--<a href="/oauth/qq" onclick='connectToOAuth($(this)); return false;'><i class="fa fa-qq fa-2x" aria-hidden="true"></i></a>--}}
+                                    {{--</div>--}}
                                 </div>
                             </div>
                         </div>

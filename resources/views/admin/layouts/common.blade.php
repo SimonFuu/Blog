@@ -18,7 +18,7 @@
                     @if(Auth() -> check())
                         {{--登录成功后，显示登录用户昵称及头像--}}
                         <li class="back-login-user-info">
-                            <a class="back-edit-user-info" href="/admin/user/{{ Auth::user() -> id }}"><i class="fa fa-user" aria-hidden="true"></i> {{ Auth::user() -> name }}</a>
+                            <a class="back-edit-user-info" href="/admin/admins/{{ Auth::user() -> id }}"><i class="fa fa-user" aria-hidden="true"></i> {{ Auth::user() -> name }}</a>
                             <a class="redirect-to-frontend" href="/" target="_blank"><i class="fa fa-home" aria-hidden="true"></i> 前台首页</a>
                             <a class="back-login-user-logout" href="/logout"><i class="fa fa-power-off" aria-hidden="true"></i> 退出</a>
                         </li>
