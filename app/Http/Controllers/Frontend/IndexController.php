@@ -23,6 +23,6 @@ class IndexController extends Controller
             -> where('articles.publishedAt', '<=', date('Y-m-d H:i:s'))
             -> orderBy('articles.publishedAt', 'DESC')
             -> paginate(env('ARTICLES_PAGINATION_COUNT'));
-        return view('frontend.index', ['articles' => $articles]);
+        return view('frontend.index', ['title' => '首页', 'articles' => $articles]);
     }
 }
