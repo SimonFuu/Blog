@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // TODO 添加检测网站状态的控制
     }
 
     /**
