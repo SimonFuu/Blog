@@ -37,7 +37,6 @@ class SendCommentsNotifyEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        Log::info('start');
         Mail::to($this -> to)
             -> send(new CommentsNofity([
                 'aid' => $this -> articleId,

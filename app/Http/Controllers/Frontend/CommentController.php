@@ -42,11 +42,9 @@ class CommentController extends FrontendController
                     $article = DB::table('articles') -> select('id', 'title') -> where('inTrash', 0)
                         -> where('id', $data['articleId']) -> first();
                     if (!is_null($toUser) && !is_null($article) && !is_null($fromUser)) {
-                        Log::info('123');
                         dispatch((new SendCommentsNotifyEmailJob(
                             $toUser -> email, $fromUser -> name, $article -> title, $article -> id, $data['content']
                         )) -> onQueue('SendMail'));
-                        Log::info('456');
                     }
                 }
             }
