@@ -232,18 +232,4 @@ class ArticlesController extends Controller
         unset($catalogs[1]);
         return $catalogs;
     }
-
-    private function getSearchConditions(Request $request)
-    {
-        $default = [];
-        $pagination = [];
-        $req = $request -> all();
-        foreach ($req as $key => $value) {
-            if (!is_null($value)) {
-                $default[$key] = $value;
-                $pagination[$key] = $value;
-            }
-        }
-        return ['default' => $default, 'pagination' => $pagination];
-    }
 }

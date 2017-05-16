@@ -59,6 +59,7 @@ Route::group(['prefix' => '/admin', 'middleware' => 'admin', 'namespace' => 'Adm
     });
     Route::group(['prefix' => 'comments'], function () {
         Route::get('/list', 'CommentsController@commentsList');
+        Route::get('/delete/{id}', 'CommentsController@deleteComment');
     });
     Route::group(['prefix' => 'admins'], function () {
         Route::get('/{id}', 'AdminsController@adminInfo');

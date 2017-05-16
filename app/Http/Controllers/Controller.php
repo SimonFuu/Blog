@@ -21,4 +21,18 @@ class Controller extends BaseController
             $this->throwValidationException($request, $validator);
         }
     }
+
+    protected function getSearchConditions(Request $request)
+    {
+        $default = [];
+        $pagination = [];
+        $req = $request -> except(['_token', '_url']);
+        foreach ($req as $key => $value) {
+            if (!is_null($value)) {
+                $default[$key] = $value;
+                $pagination[$key] = $value;
+            }
+        }
+        return ['default' => $default, 'pagination' => $pagination];
+    }
 }

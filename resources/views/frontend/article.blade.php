@@ -75,6 +75,10 @@
                         @endif
                     </div>
                     <div class="pull-right">
+                        <label for="commentNotify">
+                            接收回复通知
+                            <input type="checkbox" name="emailMe" value="1" id="commentNotify">
+                        </label>
                         <button class="btn btn-primary btn-lg" @if(!Auth::check()) {{ 'disabled' }} @endif>发布评论</button>
                     </div>
                 </div>

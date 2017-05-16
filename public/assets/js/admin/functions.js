@@ -3,16 +3,19 @@
  */
 var resizeSideBar = function () {
     var maxHeight = $(window).height() >= $(document).height() ? $(window).height() : $(document).height();
-    var navHeight = $('.navbar-header').height() + 2;
+    var navHeight = $('nav > .container-fluid').height() + 2;
+    $('body').css('padding-top', navHeight - 2);
     $('.admin-right-side').height(maxHeight - navHeight);
     $('.admin-sidebars').height(maxHeight - navHeight);
     $(window).resize(function () {
         var newMaxHeight = $(window).height() >= $(document).height() ? $(window).height() : $(document).height();
-        var newNavHeight = $('.navbar-header').height() + 2;
+        var newNavHeight = $('nav > .container-fluid').height() + 2;
+        $('body').css('padding-top', newNavHeight - 2);
         $('.admin-right-side').height(newMaxHeight - newNavHeight);
         $('.admin-sidebars').height(newMaxHeight - newNavHeight);
     });
 };
+
 
 var activeSideBar = function () {
     // console.log($('.submenus').hasClass('submenu-active'));

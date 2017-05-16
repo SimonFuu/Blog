@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class BindConfirmation extends Mailable
+class CommentsNofity extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -27,7 +27,7 @@ class BindConfirmation extends Mailable
      */
     public function build()
     {
-        return $this->subject('您正在绑定您的邮邮箱！')
-            ->view('mail.bind');
+        return $this->subject('有人回复了您在' . env('APP_URL') . '发布的评论！')
+            ->view('mail.commentNotify');
     }
 }

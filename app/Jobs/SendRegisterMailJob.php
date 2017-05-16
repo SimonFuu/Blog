@@ -11,7 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
-class SendMailJob implements ShouldQueue
+class SendRegisterMailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 

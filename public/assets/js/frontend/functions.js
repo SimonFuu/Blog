@@ -8,6 +8,15 @@ var toTop = function () {
     });
 };
 
+var adjustBodyPaddingTop = function () {
+    var navHeight = $('nav > .container').height();
+    $('body').css('padding-top', navHeight);
+    $(window).resize(function () {
+        var newNavHeight = $('nav > .container').height();
+        $('body').css('padding-top', newNavHeight);
+    });
+};
+
 var bodyScroll = function () {
     var toTop = $('.toTop');
     $(window).scroll(function () {
@@ -68,7 +77,9 @@ var replayComment = function () {
         html += '<div class="form-group"><div class="comment-submit">';
         html += '<textarea class="form-control" name="content" required cols="50" rows="10"></textarea>';
         html += '</div></div><div class="form-group comment-submit-button">';
-        html += '<div class="pull-right"><button type="button" class="btn btn-default" onclick="closeReplayTextArea()">关闭</button>';
+        html += '<div class="pull-right"><label for="childrenCommentNotify">接收回复通知 ';
+        html += '<input type="checkbox" name="emailMe" value="1" id="childrenCommentNotify">';
+        html += '</label><button type="button" class="btn btn-default" onclick="closeReplayTextArea()">关闭</button>';
         html += '<button type="submit" class="btn btn-primary">发布评论</button></div></div></form></div></li>';
         // 追加评论框
         $(this).parents('ul').append(html);
@@ -112,5 +123,6 @@ $(function () {
     indexArticleThumb();
     replayComment();
     baiduPush();
+    adjustBodyPaddingTop();
 });
 

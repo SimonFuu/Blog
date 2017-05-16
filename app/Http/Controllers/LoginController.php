@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\SendMailJob;
+use App\Jobs\SendRegisterMailJob;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
@@ -173,7 +173,7 @@ class LoginController extends Controller
             'source' => $request -> source,
             'id' => encrypt($id)
         ];
-        dispatch((new SendMailJob($request -> email, $data)) -> onQueue('SendMail'));
+        dispatch((new SendRegisterMailJob($request -> email, $data)) -> onQueue('SendMail'));
         return view('frontend.bind.response', ['email' => $request -> email, 'name' => $request -> name]);
     }
 

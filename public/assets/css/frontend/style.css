@@ -404,6 +404,9 @@ table, th, td {
    text-align: center;
 }
 
+.content-images {
+    max-width: 100%;
+}
 /**
  * 发布评论区域
  */

@@ -166,6 +166,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -236,6 +237,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];

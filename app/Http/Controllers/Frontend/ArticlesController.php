@@ -11,7 +11,7 @@ class ArticlesController extends Controller
     {
         $article = DB::table('articles')
             -> select(
-                'articles.id', 'articles.title', 'articles.content', 'users.name',
+                'articles.id', 'articles.title', 'articles.abstract as articleAbstract', 'articles.content', 'users.name',
                 'tags.name as tag', 'articles.tagId', 'catalogs.name as catalog', 'articles.catalogId', 'articles.publishedAt'
             )
             -> leftJoin('users', 'users.id', '=', 'articles.authorId')
@@ -61,8 +61,13 @@ class ArticlesController extends Controller
         }
         $article -> nextArticle = $this -> getNextArticle($article -> publishedAt);
         $article -> prevArticle = $this -> getPrevArticle($article -> publishedAt);
-        return view('frontend.article',
-            ['article' => $article, 'comments' => $parentComments, 'commentCount' => $counts]);
+        return view('frontend.article', [
+            'article' => $article,
+            'comments' => $parentComments,
+            'commentCount' => $counts,
+            'title' => $article -> title,
+            'description' => $article -> articleAbstract
+        ]);
     }
 
     private function getNextArticle($date = '1990-01-01 00:00:00')
