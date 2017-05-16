@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
-class ArticlesController extends Controller
+class ArticlesController extends FrontendController
 {
     public function getArticle($id = 0)
     {

@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Jobs\SendCommentsNotifyEmailJob;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Auth;
 use Illuminate\Support\Facades\Log;
 
-class CommentController extends Controller
+class CommentController extends FrontendController
 {
 
     public function __construct()

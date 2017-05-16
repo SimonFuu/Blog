@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 
-class TagsController extends Controller
+class TagsController extends AdminController
 {
     public function tagsList()
     {

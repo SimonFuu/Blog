@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
-class CatalogsController extends Controller
+class CatalogsController extends FrontendController
 {
     public function getCatalogArticles($id = 0)
     {

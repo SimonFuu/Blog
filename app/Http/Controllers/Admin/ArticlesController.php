@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Auth;
 use Illuminate\Support\Facades\Redis;
 use QL\QueryList;
 
-class ArticlesController extends Controller
+class ArticlesController extends AdminController
 {
     public function articlesList(Request $request)
     {
@@ -169,7 +168,7 @@ class ArticlesController extends Controller
         $data = $request -> except(['_token', '_url']);
         if (is_null($data['abstract']) || $data['abstract'] == '') {
             $abstract = strip_tags($data['content']);
-            $data['abstract'] = mb_strlen($abstract) >= 180 ? mb_substr($abstract, 0, 180) . '...' : $abstract;
+            $data['abstract'] = mb_strlen($abstract) > 150 ? mb_substr($abstract, 0, 150) . '...' : $abstract;
         }
         try {
             if (isset($data['id'])) {

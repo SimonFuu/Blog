@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
-class IndexController extends Controller
+class IndexController extends FrontendController
 {
     public function index()
     {

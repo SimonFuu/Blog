@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
-class TagsController extends Controller
+class TagsController extends FrontendController
 {
     public function getTagArticles($id = 0)
     {
@@ -13,7 +12,7 @@ class TagsController extends Controller
         if (!$count) {
             return abort(404);
         }
-        # 首页文章的显示最大字数是185
+        # 首页文章的显示最大字数是150
         $articles = DB::table('articles')
             -> select(
                 'articles.id', 'articles.title', 'articles.abstract as abstractContent', 'articles.thumb', 'users.name',

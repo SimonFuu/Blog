@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
-class AdminsController extends Controller
+class AdminsController extends AdminController
 {
     public function adminInfo($id = 0)
     {

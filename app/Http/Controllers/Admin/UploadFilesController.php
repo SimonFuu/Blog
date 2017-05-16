@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Ramsey\Uuid\Uuid;
 use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Validation\ValidationException;
 
-class UploadFilesController extends Controller
+class UploadFilesController extends AdminController
 {
     public function store(Request $request, $type = '')
     {
@@ -43,7 +42,7 @@ class UploadFilesController extends Controller
             $this -> makeDir($absoluteDirPath);
             $filename = Uuid::uuid1() -> toString() . '.' . $request->images->extension();
             $img = Image::make($request -> images);
-            $img -> text('@' . env('APP_NAME'), $img -> width() - 10, $img -> height() - ($waterMarkFontSize + 3),
+            $img -> text(env('APP_NAME'), $img -> width() - 10, $img -> height() - ($waterMarkFontSize + 3),
             function($font) use ($waterMarkFontSize) {
                 $font->file(storage_path('app/local/fonts') . '/msyh.ttf');
                 $font->size($waterMarkFontSize);
@@ -51,7 +50,7 @@ class UploadFilesController extends Controller
                 $font->align('right');
                 $font->valign('bottom');
             });
-            $img -> text(env('APP_URL'), $img -> width() - 10, $img -> height(),
+            $img -> text('@' . env('APP_URL'), $img -> width() - 10, $img -> height(),
             function($font) use ($waterMarkFontSize) {
                 $font->file(storage_path('app/local/fonts') . '/msyh.ttf');
                 $font->size($waterMarkFontSize);

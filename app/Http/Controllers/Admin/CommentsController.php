@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
-class CommentsController extends Controller
+class CommentsController extends AdminController
 {
     public function commentsList(Request $request)
     {

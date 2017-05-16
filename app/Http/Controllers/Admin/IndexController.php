@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Intervention\Image\Facades\Image;
 
-class IndexController extends Controller
+class IndexController extends AdminController
 {
     public function index()
     {
