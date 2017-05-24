@@ -1,13 +1,13 @@
 @extends('admin.layouts.common')
 @section('breadcrumb')
     <ol class="breadcrumb">
-        <li><a href="/admin/accounts/users/list">用户管理</a></li>
+        <li><a href="/admin/accounts/users">用户管理</a></li>
         <li class="active">用户列表</li>
     </ol>
 @endsection
 @section('content')
     <div class="search-header">
-        {!! Form::open(['url' => '/admin/accounts/users/list', 'method' => 'GET', 'class' => 'form-inline', 'role' => 'form']) !!}
+        {!! Form::open(['url' => '/admin/accounts/users', 'method' => 'GET', 'class' => 'form-inline', 'role' => 'form']) !!}
         <!-- class include {'form-horizontal'|'form-inline'} -->
             <!--- Name Field --->
             <div class="form-group">

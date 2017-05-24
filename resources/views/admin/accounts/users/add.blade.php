@@ -1,8 +1,8 @@
 @extends('admin.layouts.common')
 @section('breadcrumb')
     <ol class="breadcrumb">
-        <li><a href="/admin/accounts/users/list">用户管理</a></li>
-        <li><a href="/admin/accounts/users/list">用户列表</a></li>
+        <li><a href="/admin/accounts/users">用户管理</a></li>
+        <li><a href="/admin/accounts/users">用户列表</a></li>
         <li class="active">{{ is_null($user) ? '添加' : '编辑'}}用户</li>
     </ol>
 @endsection
