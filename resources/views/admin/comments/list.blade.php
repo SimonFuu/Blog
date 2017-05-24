@@ -1,14 +1,13 @@
 @extends('admin.layouts.common')
 @section('breadcrumb')
     <ol class="breadcrumb">
-        <li><a href="/admin/comments/list">评论管理</a></li>
+        <li><a href="/admin/comments">评论管理</a></li>
         <li class="active">评论列表</li>
     </ol>
 @endsection
 @section('content')
-    <link href="//cdn.bootcss.com/bootstrap-datepicker/1.7.0-RC2/css/bootstrap-datepicker.min.css" rel="stylesheet">
     <div class="search-header">
-    {!! Form::open(['url' => '/admin/comments/list', 'method' => 'GET', 'class' => 'form-inline', 'role' => 'form']) !!}
+    {!! Form::open(['url' => '/admin/comments', 'method' => 'GET', 'class' => 'form-inline', 'role' => 'form']) !!}
     <!-- class include {'form-horizontal'|'form-inline'} -->
         <!--- User Field --->
         <div class="form-group">

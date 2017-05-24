@@ -181,8 +181,8 @@ class LayoutsBarsServiceProvider extends ServiceProvider
             'index' =>  [
                 (object)['name' => '首页', 'icon' => 'fa-home', 'url' => '/', 'submenus' => []],
                 (object)['name' => '内容管理', 'icon' => 'fa-list', 'url' => '/contents/articles', 'submenus' => []],
-                (object)['name' => '评论管理', 'icon' => 'fa-comments', 'url' => '/comments/list', 'submenus' => []],
-                (object)['name' => '用户管理', 'icon' => 'fa-users', 'url' => '/users', 'submenus' => []],
+                (object)['name' => '评论管理', 'icon' => 'fa-comments', 'url' => '/comments', 'submenus' => []],
+                (object)['name' => '用户管理', 'icon' => 'fa-users', 'url' => '/accounts/users', 'submenus' => []],
                 (object)['name' => '&nbsp;回收站', 'icon' => 'fa-trash', 'url' => '/trash', 'submenus' => []],
                 (object)['name' => '网站设置', 'icon' => 'fa-cogs', 'url' => '/settings', 'submenus' => []],
             ],
@@ -199,9 +199,26 @@ class LayoutsBarsServiceProvider extends ServiceProvider
                 ]],
             ],
             'comments' => [
-                (object)['name' => '评论管理', 'icon' => 'fa-list', 'url' => '/comments/list', 'submenus' => [
-                    (object)['name' => '评论列表', 'icon' => 'fa-left', 'url' => '/comments/list'],
-                    (object)['name' => '敏感词列表', 'icon' => 'fa-left', 'url' => '/comments/words'],
+                (object)['name' => '评论管理', 'icon' => 'fa-list', 'url' => '/comments', 'submenus' => [
+                    (object)['name' => '评论列表', 'icon' => 'fa-left', 'url' => '/comments'],
+                ]],
+            ],
+            'accounts' => [
+                (object)['name' => '用户管理', 'icon' => 'fa-list', 'url' => '/accounts/users', 'submenus' => [
+                    (object)['name' => '用户列表', 'icon' => 'fa-left', 'url' => '/accounts/users'],
+                    (object)['name' => '添加用户', 'icon' => 'fa-left', 'url' => '/accounts/users/add'],
+                ]],
+                (object)['name' => '角色管理', 'icon' => 'fa-list', 'url' => '/accounts/roles/list', 'submenus' => [
+                    (object)['name' => '角色列表', 'icon' => 'fa-left', 'url' => '/accounts/roles/list'],
+                    (object)['name' => '添加角色', 'icon' => 'fa-left', 'url' => '/accounts/roles/add'],
+                ]],
+                (object)['name' => '权限管理', 'icon' => 'fa-list', 'url' => '/accounts/permissions/list', 'submenus' => [
+                    (object)['name' => '权限列表', 'icon' => 'fa-left', 'url' => '/accounts/permissions/list'],
+                    (object)['name' => '添加权限', 'icon' => 'fa-left', 'url' => '/accounts/permissions/add'],
+                ]],
+                (object)['name' => '用户操作管理', 'icon' => 'fa-list', 'url' => '/accounts/actions/list', 'submenus' => [
+                    (object)['name' => '用户操作列表', 'icon' => 'fa-left', 'url' => '/accounts/actions/list'],
+                    (object)['name' => '添加用户操作', 'icon' => 'fa-left', 'url' => '/accounts/actions/add'],
                 ]],
             ]
         ];

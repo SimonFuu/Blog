@@ -14,7 +14,6 @@ class Controller extends BaseController
 
     public function validate(Request $request, array $rules, array $messages = [], array $customAttributes = [])
     {
-        $request -> _url = null;
         $validator = $this->getValidationFactory()->make($request->all(), $rules, $messages, $customAttributes);
 
         if ($validator->fails()) {

@@ -58,8 +58,16 @@ Route::group(['prefix' => '/admin', 'middleware' => 'admin', 'namespace' => 'Adm
         Route::get('/tags/delete/{id}', 'TagsController@deleteTag');
     });
     Route::group(['prefix' => 'comments'], function () {
-        Route::get('/list', 'CommentsController@commentsList');
+        Route::get('/', 'CommentsController@commentsList');
         Route::get('/delete/{id}', 'CommentsController@deleteComment');
+    });
+    Route::group(['prefix' => 'accounts'], function () {
+        Route::get('/users', 'AccountsController@usersList');
+        Route::get('/users/add', 'AccountsController@userForm');
+        Route::get('/users/edit/{id}', 'AccountsController@userForm');
+        Route::get('/users/delete/{id}', 'AccountsController@deleteUser');
+        Route::post('/users/store', 'AccountsController@storeUser');
+        Route::get('/roles/list', 'AccountsController@usersList');
     });
     Route::group(['prefix' => 'admins'], function () {
         Route::get('/{id}', 'AdminsController@adminInfo');
