@@ -98,6 +98,11 @@ class AccountsController extends AdminController
         }
     }
 
+    public function deleteUser($id = 0)
+    {
+        DB::table('users') -> where('id', $id) -> update(['inTrash' => 1, 'roleId' => 0]);
+        return redirect('/admin/accounts/users') -> with('success', '已将用户移至回收站！(后台权限已收回)');
+    }
     private function getUserRoles()
     {
         $r = [];
@@ -111,5 +116,87 @@ class AccountsController extends AdminController
             }
         }
         return $r;
+    }
+
+    public function rolesList(Request $request)
+    {
+        $roles = DB::table('roles')
+            -> select(
+                'roles.id',
+                'roles.name',
+                'roles.description',
+                DB::raw('(select COUNT(bl_users.id) from bl_users 
+                where bl_users.roleId = bl_roles.id and bl_users.inTrash = 0) as usersCount'),
+                'roles.createdAt'
+            )
+            -> where(function ($query) use ($request) {
+                $query -> where('roles.inTrash', 0);
+                $query -> where('roles.id', '>', 0);
+                if ($request -> has('role')) {
+                    $query -> where('roles.id', $request -> role);
+                }
+            })
+            -> paginate(15);
+        $allRoles = $this -> getUserRoles();
+        unset($allRoles[0]);
+        $default = $this -> getSearchConditions($request);
+        return view('admin.accounts.roles.list', ['rolesList' => $roles, 'roles' => $allRoles, 'defaults' => $default]);
+    }
+
+    public function roleUsers($id = 0)
+    {
+        if ($id == 0) {
+            abort(404);
+        }
+        $role = DB::table('roles')
+            -> select('name', 'description')
+            -> where('id', $id)
+            -> where('inTrash', 0)
+            -> first();
+        $users = DB::table('users')
+            -> select('id', 'name')
+            -> where('inTrash', 0)
+            -> where('roleId', $id)
+            -> get();
+        return view('admin.accounts.roles.users', ['role' => $role, 'users' => $users]);
+    }
+
+    public function deleteRoleUsers(Request $request)
+    {
+        if (!$request -> has('id')) {
+            return redirect() -> back() -> with('error', '请提供用户ID');
+        }
+        DB::beginTransaction();
+        try {
+            if (is_array($request -> id)) {
+                DB::table('users')
+                    -> whereIn('id', $request -> id)
+                    -> update(['roleId' => 0]);
+
+            } else {
+                DB::table('users')
+                    -> where('id', $request -> id)
+                    -> update(['roleId' => 0]);
+            }
+            DB::commit();
+            return redirect('/admin/accounts/roles') -> with('success', '已收回用户后台权限！');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect('/admin/accounts/roles') -> with('error', '处理失败，错误信息：' . $e -> getMessage());
+        }
+    }
+
+    public function deleteRole($id = 0)
+    {
+        DB::beginTransaction();
+        try {
+            DB::table('users') -> where('roleId', $id) -> update(['roleId' => 0]);
+            DB::table('roles') -> where('id', $id) -> update(['inTrash' => 1]);
+            DB::commit();
+            return redirect('/admin/accounts/roles') -> with('success', '角色已删除，已收回该角色下所有用户的后台权限！');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect('/admin/accounts/roles') -> with('error', '处理失败，错误信息：' . $e -> getMessage());
+        }
     }
 }

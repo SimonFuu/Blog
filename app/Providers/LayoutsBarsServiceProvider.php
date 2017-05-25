@@ -208,13 +208,9 @@ class LayoutsBarsServiceProvider extends ServiceProvider
                     (object)['name' => '用户列表', 'icon' => 'fa-left', 'url' => '/accounts/users'],
                     (object)['name' => '添加用户', 'icon' => 'fa-left', 'url' => '/accounts/users/add'],
                 ]],
-                (object)['name' => '角色管理', 'icon' => 'fa-list', 'url' => '/accounts/roles/list', 'submenus' => [
-                    (object)['name' => '角色列表', 'icon' => 'fa-left', 'url' => '/accounts/roles/list'],
-                    (object)['name' => '添加角色', 'icon' => 'fa-left', 'url' => '/accounts/roles/add'],
-                ]],
-                (object)['name' => '权限管理', 'icon' => 'fa-list', 'url' => '/accounts/permissions/list', 'submenus' => [
-                    (object)['name' => '权限列表', 'icon' => 'fa-left', 'url' => '/accounts/permissions/list'],
-                    (object)['name' => '添加权限', 'icon' => 'fa-left', 'url' => '/accounts/permissions/add'],
+                (object)['name' => '后台角色管理', 'icon' => 'fa-list', 'url' => '/accounts/roles', 'submenus' => [
+                    (object)['name' => '后台角色列表', 'icon' => 'fa-left', 'url' => '/accounts/roles'],
+                    (object)['name' => '添加后台角色', 'icon' => 'fa-left', 'url' => '/accounts/roles/add'],
                 ]],
                 (object)['name' => '用户操作管理', 'icon' => 'fa-list', 'url' => '/accounts/actions/list', 'submenus' => [
                     (object)['name' => '用户操作列表', 'icon' => 'fa-left', 'url' => '/accounts/actions/list'],

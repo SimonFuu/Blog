@@ -257,6 +257,11 @@ th, td {
     margin: 10px auto;
 }
 
-.form-group .btn{
-    width: 100px;
+/*.form-group .btn {*/
+    /*width: 100px;*/
+/*}*/
+
+.role-users {
+    margin-bottom: 0;
+    font-size: 14px;
 }

@@ -115,6 +115,76 @@ var cancelEditTag = function () {
         $(this).addClass('hidden')
     });
 };
+
+var selectAll = function () {
+    $('#select-all').on('click', function () {
+        var user = $('.user-id');
+        if ($(this).is(':checked')) {
+            if(user.length !== 0) {
+                user.prop('checked', true)
+            } else {
+
+            }
+        } else {
+            if(user.length !== 0) {
+                user.prop('checked', false)
+            } else {
+
+            }
+        }
+    });
+};
+
+var deletes = function () {
+    var errorArea = $('.notify-area');
+    /**
+     * 用户管理删除用户
+     */
+    $('.delete-role-users').on('click', function () {
+        // 判断是否有选中的
+        if ($('.user-id:checked').length === 0) {
+            errorArea.html('');
+            var errorHtml = '';
+            errorHtml += '<div class="alert alert-danger alert-dismissable users-not-selected">';
+            errorHtml += '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">';
+            errorHtml += '&times;';
+            errorHtml += '</button>';
+            errorHtml += '请先选中需要删除的用户！';
+            errorHtml += '</div>';
+            console.log(errorHtml);
+            errorArea.html(errorHtml);
+            $('body').scrollTop(0);
+            return false;
+        } else {
+            if (!confirm('是否要删除所选用户？')) {
+                return false;
+            }
+            var hrefUrl = $(this).attr('href');
+            var currentHrefEnd = hrefUrl.charAt(hrefUrl.length-1);
+            if (currentHrefEnd === '/') {
+                hrefUrl = addUsersToUrl(hrefUrl);
+                $(this).attr('href', hrefUrl);
+            } else {
+                hrefUrl = '/users/delete/';
+                hrefUrl = addUsersToUrl(hrefUrl);
+                $(this).attr('href', hrefUrl);
+            }
+        }
+    });
+    function addUsersToUrl(url) {
+        url += '?';
+        $('.user-id:checked').each(function (index, ele) {
+            url += 'id[' + index + ']' + '=' + $(ele).val() + '&';
+        });
+        return url.substring(0, url.length-1);
+    }
+    $('.delete-role-user').on('click', function () {
+        if (!confirm('是否要删除该用户？')) {
+            return false;
+        }
+    });
+};
+
 $(function () {
     activeSideBar();
     resizeSideBar();
@@ -122,4 +192,6 @@ $(function () {
     editTag();
     cancelEditTag();
     deleteConfirmation();
+    selectAll();
+    deletes();
 });

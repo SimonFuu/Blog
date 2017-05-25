@@ -120,7 +120,7 @@ class LoginController extends FrontendController
     {
         return DB::table('oauth')
             -> select('uId', 'oId')
-            -> where('isDelete', 0)
+            -> where('inTrash', 0)
             -> where('oId', $user -> id)
             -> where('source', $source)
             -> first();
@@ -189,7 +189,7 @@ class LoginController extends FrontendController
             } else {
                 $data = json_decode($json);
                 $user = DB::table('users')
-                    -> select('id', 'username') -> where('email', $data -> email) -> where('isDelete', 0) -> first();
+                    -> select('id', 'username', 'inTrash') -> where('email', $data -> email) -> first();
                 if (is_null($user)) {
                     $username = $data -> source . '-' . $data -> oId;
                     $userInfo = [
@@ -198,26 +198,36 @@ class LoginController extends FrontendController
                         'email' => $data -> email,
                         'name' => $data -> name,
                         'avatar' => $data -> avatar,
-                        'roleId' => 999,
+                        'roleId' => 0,
                     ];
                     $pKey = DB::table('users')
                         -> insertGetId($userInfo);
-
+                    DB::table('oauth')
+                        -> insert([
+                            'oId' => $data -> oId, 'uId' => $pKey, 'source' => $this -> getOauthSourceCode($data -> source)
+                        ]);
+                    Auth::attempt(['id' => $pKey, 'password' => $username]);
+                    $message = '绑定邮箱成功，正在跳转到主页！如无法跳转，请<a href="/">点击这里</a>！';
                 } else {
-                    DB::table('users')
-                        -> where('id', $user -> id)
-                        -> update(['name' => $data -> name, 'avatar' => $data -> avatar]);
-                    $pKey = $user -> id;
-                    $username = $user -> username;
+                    if ($user -> inTrash == 1) {
+                        DB::table('users')
+                            -> where('id', $user -> id)
+                            -> update(['name' => $data -> name, 'avatar' => $data -> avatar]);
+                        $pKey = $user -> id;
+                        $username = $user -> username;
+                        DB::table('oauth')
+                            -> insert([
+                                'oId' => $data -> oId, 'uId' => $pKey, 'source' => $this -> getOauthSourceCode($data -> source)
+                            ]);
+                        Auth::attempt(['id' => $pKey, 'password' => $username]);
+                        $message = '绑定邮箱成功，正在跳转到主页！如无法跳转，请<a href="/">点击这里</a>！';
+                    } else {
+                        $message = '您已经被禁止登陆，请与管理员联系！';
+                    }
                 }
-                DB::table('oauth')
-                    -> insert([
-                        'oId' => $data -> oId, 'uId' => $pKey, 'source' => $this -> getOauthSourceCode($data -> source)
-                    ]);
-                Auth::attempt(['id' => $pKey, 'password' => $username]);
                 Cache::forget($id);
                 return view('frontend.bind.confirmation',
-                    ['message' => '绑定邮箱成功，正在跳转到主页！如无法跳转，请<a href="/">点击这里</a>！']);
+                    ['message' => $message]);
             }
         } catch (\Exception $e) {
             Log::warning('用户绑定确认失败，错误原因：' . $e -> getMessage());

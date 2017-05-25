@@ -67,7 +67,11 @@ Route::group(['prefix' => '/admin', 'middleware' => 'admin', 'namespace' => 'Adm
         Route::get('/users/edit/{id}', 'AccountsController@userForm');
         Route::get('/users/delete/{id}', 'AccountsController@deleteUser');
         Route::post('/users/store', 'AccountsController@storeUser');
-        Route::get('/roles/list', 'AccountsController@usersList');
+        Route::get('/roles', 'AccountsController@rolesList');
+        Route::get('/roles/add', 'AccountsController@rolesForm');
+        Route::get('/roles/users/edit/{id}', 'AccountsController@roleUsers');
+        Route::get('/roles/users/delete', 'AccountsController@deleteRoleUsers');
+        Route::get('/roles/delete/{id}', 'AccountsController@deleteRole');
     });
     Route::group(['prefix' => 'admins'], function () {
         Route::get('/{id}', 'AdminsController@adminInfo');

@@ -73,8 +73,7 @@
                         {{ $user -> createdAt }}
                     </td>
                     <td>
-                        <a href="javascript:;" title="删除"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                        <a href="/admin/accounts/users/edit/{{ $user -> id }}" title="删除"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                        <a href="/admin/accounts/users/edit/{{ $user -> id }}" title=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                         <a href="/admin/accounts/users/delete/{{ $user -> id }}" title="删除"><i class="fa fa-trash" aria-hidden="true"></i></a>
                     </td>
                 </tr>
