@@ -10,6 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('maintenance', function () {
+    return view('maintenance');
+});
 # 用户登陆
 Route::post('/login', 'LoginController@commonLogin');
 # OAuth登陆

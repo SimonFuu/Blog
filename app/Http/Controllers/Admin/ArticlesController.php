@@ -138,7 +138,7 @@ class ArticlesController extends AdminController
     public function storeArticle(Request $request)
     {
         $roles = [
-            'title' => 'required|min:5|max:20',
+            'title' => 'required|min:5|max:40',
             'catalogId' => 'required|exists:catalogs,id,inTrash,0',
             'tagId' => 'required|exists:tags,id,inTrash,0',
             'publishedAt' => 'required|date',
@@ -148,8 +148,8 @@ class ArticlesController extends AdminController
         ];
         $messages = [
             'title.required' => '请输入文章标题！',
-            'title.min' => '文章标题长度为5-20！',
-            'title.max' => '文章标题长度为5-20！',
+            'title.min' => '文章标题长度为5-40！',
+            'title.max' => '文章标题长度为5-40！',
             'catalogId.required' => '请选择文章目录！',
             'catalogId.exists' => '文章目录不正确！',
             'tagId.required' => '请选择文章标签！',
